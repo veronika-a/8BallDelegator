@@ -54,8 +54,10 @@ class SettingsVC: UIViewController {
                 if #available(iOS 13.0, *) {
                     if window.overrideUserInterfaceStyle != .dark {
                         window.overrideUserInterfaceStyle = .dark
+                        UserDefaults.standard.set(false, forKey: "appearance")
                     } else {
                         window.overrideUserInterfaceStyle = .light
+                        UserDefaults.standard.set(true, forKey: "appearance")
                     }
                 } else {
                     // Fallback on earlier versions

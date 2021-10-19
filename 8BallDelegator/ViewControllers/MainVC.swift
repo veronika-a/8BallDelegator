@@ -14,6 +14,21 @@ class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        changeAppearance()
+    }
+    
+    func changeAppearance(){
+        let appearance = UserDefaults.standard.bool(forKey: "appearance")
+        
+        if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
+            UIView.transition (with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                if #available(iOS 13.0, *) {
+                    window.overrideUserInterfaceStyle = appearance ? .light : .dark
+                } else {
+                    // Fallback on earlier versions
+                }
+            }, completion: nil)
+        }
     }
     
     public func errorMessage(error: String){
@@ -43,7 +58,7 @@ class MainVC: UIViewController {
                     self?.errorMessage(error: error)
                 default:
                     self?.errorMessage(error: "\(error.localizedDescription)")
-                print(error)
+                    print(error)
                 }
             }
         }
@@ -61,6 +76,7 @@ class MainVC: UIViewController {
     // Enable detection of shake motion
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
             getAnswer()
         }
     }

@@ -204,8 +204,8 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sei-3n-JiG">
-                                <rect key="frame" x="96" y="71.5" width="222" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sei-3n-JiG">
+                                <rect key="frame" x="96" y="72" width="222" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="Titles"/>
                                 <nil key="highlightedColor"/>
@@ -241,9 +241,9 @@
                         <color key="backgroundColor" name="MainBackground"/>
                         <constraints>
                             <constraint firstItem="jEb-N4-bbc" firstAttribute="leading" secondItem="H4G-FB-m55" secondAttribute="leading" id="3jM-AR-SQT"/>
+                            <constraint firstItem="H4G-FB-m55" firstAttribute="trailing" secondItem="sei-3n-JiG" secondAttribute="trailing" constant="96" id="Biu-re-Uh7"/>
                             <constraint firstItem="wtm-im-sad" firstAttribute="top" secondItem="H4G-FB-m55" secondAttribute="top" constant="12" id="DC8-36-m8L"/>
                             <constraint firstItem="sei-3n-JiG" firstAttribute="centerY" secondItem="wtm-im-sad" secondAttribute="centerY" id="Eja-sM-Zlq"/>
-                            <constraint firstItem="sei-3n-JiG" firstAttribute="centerX" secondItem="H4G-FB-m55" secondAttribute="centerX" id="GBl-6x-nDs"/>
                             <constraint firstItem="H4G-FB-m55" firstAttribute="bottom" secondItem="jEb-N4-bbc" secondAttribute="bottom" id="LhF-KP-6sS"/>
                             <constraint firstItem="jEb-N4-bbc" firstAttribute="top" secondItem="wtm-im-sad" secondAttribute="bottom" constant="12" id="Xsn-dM-sas"/>
                             <constraint firstItem="mbs-pm-9l8" firstAttribute="centerY" secondItem="wtm-im-sad" secondAttribute="centerY" id="aS2-1p-cUO"/>
