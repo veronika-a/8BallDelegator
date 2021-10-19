@@ -9,21 +9,31 @@
 /* Begin PBXBuildFile section */
 		94392F15271D749C0073F85D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F14271D749C0073F85D /* AppDelegate.swift */; };
 		94392F17271D749C0073F85D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F16271D749C0073F85D /* SceneDelegate.swift */; };
-		94392F19271D749C0073F85D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F18271D749C0073F85D /* ViewController.swift */; };
+		94392F19271D749C0073F85D /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F18271D749C0073F85D /* MainVC.swift */; };
 		94392F1C271D749C0073F85D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94392F1A271D749C0073F85D /* Main.storyboard */; };
 		94392F1E271D749F0073F85D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94392F1D271D749F0073F85D /* Assets.xcassets */; };
 		94392F21271D749F0073F85D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94392F1F271D749F0073F85D /* LaunchScreen.storyboard */; };
+		94392F2D271D79E30073F85D /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F2C271D79E30073F85D /* SettingsVC.swift */; };
+		94392F2F271D7A6A0073F85D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94392F2E271D7A6A0073F85D /* Colors.xcassets */; };
+		94392F34271D944B0073F85D /* CornerRadiusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F33271D944B0073F85D /* CornerRadiusView.swift */; };
+		94392F36271D9DF10073F85D /* CornerRadiusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F35271D9DF10073F85D /* CornerRadiusButton.swift */; };
+		94392F38271DAC2B0073F85D /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F37271DAC2B0073F85D /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		94392F11271D749C0073F85D /* 8BallDelegator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 8BallDelegator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94392F14271D749C0073F85D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94392F16271D749C0073F85D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		94392F18271D749C0073F85D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		94392F18271D749C0073F85D /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		94392F1B271D749C0073F85D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		94392F1D271D749F0073F85D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		94392F20271D749F0073F85D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		94392F22271D749F0073F85D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94392F2C271D79E30073F85D /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		94392F2E271D7A6A0073F85D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		94392F33271D944B0073F85D /* CornerRadiusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusView.swift; sourceTree = "<group>"; };
+		94392F35271D9DF10073F85D /* CornerRadiusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusButton.swift; sourceTree = "<group>"; };
+		94392F37271DAC2B0073F85D /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +66,60 @@
 		94392F13271D749C0073F85D /* 8BallDelegator */ = {
 			isa = PBXGroup;
 			children = (
-				94392F14271D749C0073F85D /* AppDelegate.swift */,
-				94392F16271D749C0073F85D /* SceneDelegate.swift */,
-				94392F18271D749C0073F85D /* ViewController.swift */,
-				94392F1A271D749C0073F85D /* Main.storyboard */,
-				94392F1D271D749F0073F85D /* Assets.xcassets */,
-				94392F1F271D749F0073F85D /* LaunchScreen.storyboard */,
-				94392F22271D749F0073F85D /* Info.plist */,
+				94392F2A271D787C0073F85D /* Services */,
+				94392F28271D781A0073F85D /* Storyboards */,
+				94392F29271D784B0073F85D /* ViewControllers */,
+				94392F30271D922E0073F85D /* UI Components */,
+				94392F2B271D78A50073F85D /* Supporting files */,
 			);
 			path = 8BallDelegator;
+			sourceTree = "<group>";
+		};
+		94392F28271D781A0073F85D /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				94392F1A271D749C0073F85D /* Main.storyboard */,
+				94392F1F271D749F0073F85D /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		94392F29271D784B0073F85D /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				94392F18271D749C0073F85D /* MainVC.swift */,
+				94392F2C271D79E30073F85D /* SettingsVC.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		94392F2A271D787C0073F85D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				94392F37271DAC2B0073F85D /* NetworkService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		94392F2B271D78A50073F85D /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				94392F1D271D749F0073F85D /* Assets.xcassets */,
+				94392F2E271D7A6A0073F85D /* Colors.xcassets */,
+				94392F22271D749F0073F85D /* Info.plist */,
+				94392F14271D749C0073F85D /* AppDelegate.swift */,
+				94392F16271D749C0073F85D /* SceneDelegate.swift */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		94392F30271D922E0073F85D /* UI Components */ = {
+			isa = PBXGroup;
+			children = (
+				94392F33271D944B0073F85D /* CornerRadiusView.swift */,
+				94392F35271D9DF10073F85D /* CornerRadiusButton.swift */,
+			);
+			path = "UI Components";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,6 +181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94392F21271D749F0073F85D /* LaunchScreen.storyboard in Resources */,
+				94392F2F271D7A6A0073F85D /* Colors.xcassets in Resources */,
 				94392F1E271D749F0073F85D /* Assets.xcassets in Resources */,
 				94392F1C271D749C0073F85D /* Main.storyboard in Resources */,
 			);
@@ -138,9 +194,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94392F19271D749C0073F85D /* ViewController.swift in Sources */,
+				94392F36271D9DF10073F85D /* CornerRadiusButton.swift in Sources */,
+				94392F19271D749C0073F85D /* MainVC.swift in Sources */,
+				94392F2D271D79E30073F85D /* SettingsVC.swift in Sources */,
 				94392F15271D749C0073F85D /* AppDelegate.swift in Sources */,
 				94392F17271D749C0073F85D /* SceneDelegate.swift in Sources */,
+				94392F34271D944B0073F85D /* CornerRadiusView.swift in Sources */,
+				94392F38271DAC2B0073F85D /* NetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,7 +277,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -272,7 +332,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -291,10 +351,11 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = T46S54Q32W;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = 8BallDelegator/Info.plist;
+				INFOPLIST_FILE = "8BallDelegator/Supporting files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -319,10 +380,11 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = T46S54Q32W;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = 8BallDelegator/Info.plist;
+				INFOPLIST_FILE = "8BallDelegator/Supporting files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
