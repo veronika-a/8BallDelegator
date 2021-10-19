@@ -8,7 +8,7 @@
 import UIKit
 
 class SettingsVC: UIViewController {
-
+    
     var cells: [CellType] = []
     
     struct CellType {
@@ -27,15 +27,14 @@ class SettingsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
         loadCells()
     }
     
     func loadCells() {
-        cells.append(CellType(cellType: .contactSupport, img: UIImage(named: "Appearance"), labelText: "Appearance"))
-        
+        cells.append(CellType(cellType: .appearance, img: UIImage(named: "Appearance"), labelText: "Appearance"))
     }
     
     func selectRow(index: Int) {
@@ -43,9 +42,25 @@ class SettingsVC: UIViewController {
         let cell = cells[index]
         switch cell.cellType {
         case .appearance:
-            break
+            changeAppearance()
         default:
             break
+        }
+    }
+    
+    func changeAppearance(){
+        if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
+            UIView.transition (with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                if #available(iOS 13.0, *) {
+                    if window.overrideUserInterfaceStyle != .dark {
+                        window.overrideUserInterfaceStyle = .dark
+                    } else {
+                        window.overrideUserInterfaceStyle = .light
+                    }
+                } else {
+                    // Fallback on earlier versions
+                }
+            }, completion: nil)
         }
     }
     
