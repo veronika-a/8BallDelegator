@@ -30,7 +30,7 @@ class NetworkService {
             "Content-Type" : "application/json; charset=utf-8" ]
         urlRequest.httpMethod = "GET"
         urlRequest.allHTTPHeaderFields = requestHeaders
-        let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: urlRequest) { [weak self] (data, response, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     if let error = error as NSError?, error.domain == NSURLErrorDomain && error.code == NSURLErrorNotConnectedToInternet {
@@ -46,7 +46,7 @@ class NetworkService {
                 if let httpResponse = response as? HTTPURLResponse {
                     switch httpResponse.statusCode {
                     case 200..<300:
-                        self.decodeJson(type: MagicJsonResponse<T>.self, from: data) { (result) in
+                        self?.decodeJson(type: MagicJsonResponse<T>.self, from: data) { (result) in
                             switch result {
                             case .success(let decode):
                                 guard let decode = decode else {return}
