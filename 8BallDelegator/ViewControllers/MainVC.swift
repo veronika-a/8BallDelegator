@@ -10,7 +10,7 @@ import UIKit
 class MainVC: UIViewController {
     let networkService = NetworkService()
     
-    @IBOutlet weak var answer: UILabel!
+    @IBOutlet weak var answerLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +50,7 @@ class MainVC: UIViewController {
                 guard let success = success, let value = success.magic else {return}
                 print(success)
                 DispatchQueue.main.async {
-                    self?.answer.text = value.answer ?? ""
+                    self?.answerLabel.text = value.answer ?? ""
                 }
             case .failure(let error):
                 switch error {
@@ -64,7 +64,7 @@ class MainVC: UIViewController {
         }
     }
     
-    @IBAction func shake(_ sender: Any) {
+    @IBAction func getAnswerWithoutShake(_ sender: Any) {
         getAnswer()
     }
     
