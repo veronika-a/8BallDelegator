@@ -8,9 +8,18 @@
 import UIKit
 
 class MainVC: UIViewController {
-    private let networkService = NetworkService()
-    
     @IBOutlet weak var answerLabel: UILabel!
+    
+    var networkManager: NetworkService
+    
+    required init?(coder: NSCoder, networkManager: NetworkService) {
+        self.networkManager = networkManager
+        super.init(coder: coder)
+      }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +53,7 @@ class MainVC: UIViewController {
     }
     
     private func getAnswer(){
-        let repository = Repository.init(networkDataProvider: networkService)
+        let repository = Repository.init(networkDataProvider: networkManager)
         repository.getAnswer(question: "How do I know this is real magic?") { [weak self] result in
             switch result {
             case .success(let success):
