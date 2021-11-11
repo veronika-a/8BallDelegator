@@ -10,10 +10,10 @@ import UIKit
 class MainVC: UIViewController {
     @IBOutlet weak var answerLabel: UILabel!
     
-    var networkManager: NetworkService
+    var repository: Repository
     
-    required init?(coder: NSCoder, networkManager: NetworkService) {
-        self.networkManager = networkManager
+    required init?(coder: NSCoder, repository: Repository) {
+        self.repository = repository
         super.init(coder: coder)
       }
     
@@ -53,7 +53,6 @@ class MainVC: UIViewController {
     }
     
     private func getAnswer(){
-        let repository = Repository.init(networkDataProvider: networkManager)
         repository.getAnswer(question: "How do I know this is real magic?") { [weak self] result in
             switch result {
             case .success(let success):
