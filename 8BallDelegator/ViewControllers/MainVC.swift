@@ -8,16 +8,25 @@
 import UIKit
 
 class MainVC: UIViewController {
-    let networkService = NetworkService()
-    
     @IBOutlet weak var answerLabel: UILabel!
+    
+    var repository: Repository
+    
+    required init?(coder: NSCoder, repository: Repository) {
+        self.repository = repository
+        super.init(coder: coder)
+      }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         changeAppearance()
     }
     
-    func changeAppearance(){
+    private func changeAppearance(){
         let appearance = UserDefaults.standard.bool(forKey: "appearance")
         
         if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
@@ -37,14 +46,14 @@ class MainVC: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func toSettings(){
+    private func toSettings(){
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "Settings") as? SettingsVC else { return }
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func getAnswer(){
-        networkService.getAnswer(question: "How do I know this is real magic?") { [weak self] result in
+    private func getAnswer(){
+        repository.getAnswer(question: "How do I know this is real magic?") { [weak self] result in
             switch result {
             case .success(let success):
                 guard let success = success, let value = success.magic else {return}
@@ -64,8 +73,12 @@ class MainVC: UIViewController {
         }
     }
     
-    @IBAction func getAnswerWithoutShake(_ sender: Any) {
-        getAnswer()
+    // Enable detection of shake motion
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            getAnswer()
+        }
     }
     
     //MARK: - IBAction
@@ -73,12 +86,8 @@ class MainVC: UIViewController {
         toSettings()
     }
     
-    // Enable detection of shake motion
-    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
-            getAnswer()
-        }
+    @IBAction func getAnswerWithoutShake(_ sender: Any) {
+        getAnswer()
     }
 }
 
