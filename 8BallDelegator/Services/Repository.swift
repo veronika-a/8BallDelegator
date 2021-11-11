@@ -9,12 +9,14 @@ import Foundation
 
 class Repository {
     private let networkDataProvider: NetworkDataProvider
-    
+
     init(networkDataProvider: NetworkDataProvider) {
         self.networkDataProvider = networkDataProvider
     }
-    
-    func getAnswer(question : String, completion: @escaping (Result<MagicJsonResponse<Magic>?, CallError>) -> Void){
+
+    func getAnswer(
+        question: String,
+        completion: @escaping (Result<MagicJsonResponse<Magic>?, CallError>) -> Void) {
         networkDataProvider.getAnswer(question: question, completion: completion)
     }
 }
