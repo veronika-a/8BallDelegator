@@ -33,7 +33,7 @@ class SettingsVC: UIViewController {
     }
 
     func loadCells() {
-        cells.append(SettingsCell(cellType: .appearance, img: UIImage(named: "Appearance"), labelText: "Appearance"))
+        cells.append(SettingsCell(cellType: .appearance, img: UIImage(named: "Appearance"), labelText: L10n.appearance))
     }
 
     func selectRow(index: Int) {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 class MainVC: UIViewController {
     @IBOutlet weak var answerLabel: UILabel!
@@ -57,7 +58,7 @@ class MainVC: UIViewController {
     }
 
     private func getAnswer() {
-        repository.getAnswer(question: "How do I know this is real magic?") { [weak self] result in
+        repository.getAnswer(question: L10n.questionText) { [weak self] result in
             switch result {
             case .success(let success):
                 guard let success = success, let value = success.magic else {return}
