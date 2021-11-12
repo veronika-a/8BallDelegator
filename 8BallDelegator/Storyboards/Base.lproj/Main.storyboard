@@ -73,8 +73,8 @@
                                     <constraint firstAttribute="width" constant="48" id="4QE-kt-DvQ"/>
                                     <constraint firstAttribute="height" constant="52" id="gj1-nx-GfY"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title=""/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title=""/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="16"/>
@@ -93,10 +93,10 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KYr-K6-9Yt">
-                                <rect key="frame" x="24" y="807" width="366" height="31"/>
+                                <rect key="frame" x="24" y="808" width="366" height="30"/>
                                 <color key="tintColor" name="Titles"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="SHAKE!"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="SHAKE!"/>
                                 <connections>
                                     <action selector="getAnswerWithoutShake:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vO1-Q2-zUO"/>
                                 </connections>
@@ -217,8 +217,8 @@
                                     <constraint firstAttribute="height" constant="52" id="HKH-u0-Bvs"/>
                                     <constraint firstAttribute="width" constant="48" id="V9d-lF-SYk"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title=""/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title=""/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="16"/>
@@ -264,10 +264,10 @@
     </scenes>
     <designables>
         <designable name="TCK-7U-3Ix">
-            <size key="intrinsicContentSize" width="24" height="14"/>
+            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="wtm-im-sad">
-            <size key="intrinsicContentSize" width="24" height="14"/>
+            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
     </designables>
     <resources>

@@ -1,0 +1,16 @@
+input_dir: 8BallDelegator/
+output_dir: 8BallDelegator/Generated/
+
+xcassets:
+  inputs:
+    - Supporting files/Assets.xcassets
+    - Supporting files/Colors.xcassets
+  outputs:
+    templateName: swift5
+    output: XCAssets+Generated.swift
+strings:
+  inputs: Storyboards/Base.lproj
+  outputs:
+    - templateName: structured-swift5
+      output: Strings.swift
+

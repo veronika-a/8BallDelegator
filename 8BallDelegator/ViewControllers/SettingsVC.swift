@@ -8,35 +8,34 @@
 import UIKit
 
 class SettingsVC: UIViewController {
-    
-    var cells: [CellType] = []
-    
-    struct CellType {
-        var cellType : CellType?
-        var img : UIImage?
-        var labelText : String?
-        
-        enum CellType {
-            case contactSupport
-            case appearance
-        }
+
+    var cells: [SettingsCell] = []
+
+    struct SettingsCell {
+        var cellType: CellType?
+        var img: UIImage?
+        var labelText: String?
     }
-    
-    //MARK: - IBOutlet
+    enum CellType {
+        case contactSupport
+        case appearance
+    }
+
+    // MARK: - IBOutlet
     @IBOutlet weak var tableView: UITableView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         loadCells()
     }
-    
+
     func loadCells() {
-        cells.append(CellType(cellType: .appearance, img: UIImage(named: "Appearance"), labelText: "Appearance"))
+        cells.append(SettingsCell(cellType: .appearance, img: UIImage(named: "Appearance"), labelText: L10n.appearance))
     }
-    
+
     func selectRow(index: Int) {
         guard index < cells.count else { return }
         let cell = cells[index]
@@ -47,10 +46,10 @@ class SettingsVC: UIViewController {
             break
         }
     }
-    
-    func changeAppearance(){
+
+    func changeAppearance() {
         if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
-            UIView.transition (with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
                 if #available(iOS 13.0, *) {
                     if window.overrideUserInterfaceStyle != .dark {
                         window.overrideUserInterfaceStyle = .dark
@@ -65,12 +64,12 @@ class SettingsVC: UIViewController {
             }, completion: nil)
         }
     }
-    
-    func toMain(){
+
+    func toMain() {
         navigationController?.popViewController(animated: true)
     }
-    
-    //MARK: - IBAction
+
+    // MARK: - IBAction
     @IBAction func back(_ sender: Any) {
         toMain()
     }
@@ -81,15 +80,17 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         cells.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellType = cells[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsTableViewCell", for: indexPath) as? SettingsTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: "SettingsTableViewCell", for: indexPath)
+                as? SettingsTableViewCell else { return UITableViewCell() }
         cell.typeLabel.text = cellType.labelText
         cell.iconImageView.image = cellType.img
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectRow(index: indexPath.row)
     }
