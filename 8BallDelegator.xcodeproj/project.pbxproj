@@ -18,6 +18,7 @@
 		94392F34271D944B0073F85D /* CornerRadiusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F33271D944B0073F85D /* CornerRadiusView.swift */; };
 		94392F36271D9DF10073F85D /* CornerRadiusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F35271D9DF10073F85D /* CornerRadiusButton.swift */; };
 		94392F38271DAC2B0073F85D /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F37271DAC2B0073F85D /* NetworkService.swift */; };
+		94B5FB732739761F00CBBB54 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B5FB722739761F00CBBB54 /* Repository.swift */; };
 		A2520B2FB8387F46FE6B15DD /* libPods-8BallDelegator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A1FBB36FAF1D708CFBD9C3 /* libPods-8BallDelegator.a */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		94392F33271D944B0073F85D /* CornerRadiusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusView.swift; sourceTree = "<group>"; };
 		94392F35271D9DF10073F85D /* CornerRadiusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusButton.swift; sourceTree = "<group>"; };
 		94392F37271DAC2B0073F85D /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		94B5FB722739761F00CBBB54 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		A3A1FBB36FAF1D708CFBD9C3 /* libPods-8BallDelegator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-8BallDelegator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFE247CA75ADD631980406EC /* Pods-8BallDelegator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-8BallDelegator.debug.xcconfig"; path = "Target Support Files/Pods-8BallDelegator/Pods-8BallDelegator.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,7 +60,6 @@
 				AFE247CA75ADD631980406EC /* Pods-8BallDelegator.debug.xcconfig */,
 				1F91DDE90B1B7B036232B2E2 /* Pods-8BallDelegator.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -122,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				94392F37271DAC2B0073F85D /* NetworkService.swift */,
+				94B5FB722739761F00CBBB54 /* Repository.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -154,6 +156,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94392F25271D749F0073F85D /* Build configuration list for PBXNativeTarget "8BallDelegator" */;
 			buildPhases = (
+				94F2D6F0273D417B002A5D9D /* ShellScript */,
 				D1E5DC5A80360C4672D156EB /* [CP] Check Pods Manifest.lock */,
 				94392F0D271D749C0073F85D /* Sources */,
 				94392F0E271D749C0073F85D /* Frameworks */,
@@ -216,6 +219,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		94F2D6F0273D417B002A5D9D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 		D1E5DC5A80360C4672D156EB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -248,6 +268,7 @@
 				94392F36271D9DF10073F85D /* CornerRadiusButton.swift in Sources */,
 				94392F19271D749C0073F85D /* MainVC.swift in Sources */,
 				94392F2D271D79E30073F85D /* SettingsVC.swift in Sources */,
+				94B5FB732739761F00CBBB54 /* Repository.swift in Sources */,
 				94392F15271D749C0073F85D /* AppDelegate.swift in Sources */,
 				94392F17271D749C0073F85D /* SceneDelegate.swift in Sources */,
 				94392F34271D944B0073F85D /* CornerRadiusView.swift in Sources */,
