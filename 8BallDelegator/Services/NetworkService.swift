@@ -7,23 +7,21 @@
 
 import Foundation
 
-class NetworkService {
-    let BASE_URL = "https://8ball.delegator.com"
-    
-    var commonFormatter: ISO8601DateFormatter = {
+class NetworkService: NetworkDataProvider {
+    private let BASE_URL = "https://8ball.delegator.com"
+    private var commonFormatter: ISO8601DateFormatter = {
         let df = ISO8601DateFormatter()
         df.formatOptions = [.withInternetDateTime, .withFractionalSeconds, .withTimeZone]
         return df
     }()
     
     func getAnswer(question : String, completion: @escaping (Result<MagicJsonResponse<Magic>?, CallError>) -> Void){
-        
         var urlString = BASE_URL + "/magic/JSON/\(question)"
         urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         self.requestGet(urlString: urlString, completion: completion)
     }
     
-    func requestGet<T:Decodable>(urlString: String, completion: @escaping (Result<MagicJsonResponse<T>?, CallError>) -> Void) {
+    private func requestGet<T:Decodable>(urlString: String, completion: @escaping (Result<MagicJsonResponse<T>?, CallError>) -> Void) {
         guard let url = URL(string: urlString) else { return }
         var urlRequest = URLRequest(url: url)
         let requestHeaders: [String : String] = [
@@ -67,7 +65,7 @@ class NetworkService {
         task.resume()
     }
     
-    func decodeJson<T:Decodable>(type: T.Type, from: Data?, completion: (Result<T?, CallError>) -> Void) {
+    private func decodeJson<T:Decodable>(type: T.Type, from: Data?, completion: (Result<T?, CallError>) -> Void) {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .custom({ decoder in
             let container = try decoder.singleValueContainer()
@@ -83,6 +81,13 @@ class NetworkService {
             completion(.failure(.jsonError(jsonError)))
         }
     }
+}
+
+//MARK: - NetworkDataProvider
+protocol NetworkDataProvider {
+    func getAnswer(
+        question : String,
+        completion: @escaping (Result<MagicJsonResponse<Magic>?, CallError>) -> Void)
 }
 
 enum CallError: Error {
