@@ -3,7 +3,7 @@ platform :ios, '12.0'
 target '8BallDelegator' do
     # Networking
     # pod 'Alamofire', '~> 4.8.1'
-    pod 'SwiftLint'
+    pod 'SwiftLint', '~> 0.45.0'
     pod 'SwiftGen', '~> 6.1'
     
 end
