@@ -66,7 +66,7 @@ class MainViewController: UIViewController {
     }
 
     private func getAnswer() {
-        mainViewModel?.getAnswer(completion: { [weak self] result in
+        mainViewModel?.getAnswer(currentAnswer: presentableMagicAnswer?.answer, completion: { [weak self] result in
             switch result {
             case .success(let success):
                 guard let presentableMagicAnswer = success else {return}
@@ -74,25 +74,18 @@ class MainViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.answerLabel.text = presentableMagicAnswer.answer ?? ""
                     self?.answerLabel.textColor = presentableMagicAnswer.color?.color
+                    self?.presentableMagicAnswer = presentableMagicAnswer
                 }
             case .failure(let error):
                 switch error {
                 case .networkError(let networkError):
-                    self?.getDBAnswer()
+                    self?.errorMessage(error: networkError)
                     print(networkError)
                 default:
                     print(error)
                 }
             }
         })
-    }
-
-    func getDBAnswer() {
-        var repository = Repository.init(networkDataProvider: DBClient())
-        mainViewModel = MainViewModel(model: MainModel(repository: repository))
-        getAnswer()
-        repository = Repository.init(networkDataProvider: NetworkService())
-        mainViewModel = MainViewModel(model: MainModel(repository: repository))
     }
 
     // Enable detection of shake motion

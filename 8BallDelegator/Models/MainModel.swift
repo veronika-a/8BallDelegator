@@ -28,16 +28,31 @@ class MainModel {
     }
 
     func getAnswer(completion: @escaping (Result<MagicAnswer?, CallError>) -> Void) {
-        repository.getAnswer(question: L10n.questionText) { result in
+        repository.getAnswer { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let success):
                     guard let success = success, let magic = success.magic else {return}
-                    self.saveToDB(magic: magic)
+                    self?.saveToDB(magic: magic)
                     let managedAnswer = success.toManagedAnswer()
+                    self?.managedAnswer = managedAnswer
                     completion(.success(managedAnswer.toMagicAnswer()))
-                case .failure(let error):
-                    completion(.failure(error))
+                case .failure(let networkError):
+                    DispatchQueue.main.async {
+                        let repository = Repository(networkDataProvider: DBClient())
+                        repository.getAnswer { result in
+                            switch result {
+                            case .success(let success):
+                                guard let success = success else {return}
+                                let managedAnswer = success.toManagedAnswer()
+                                self?.managedAnswer = managedAnswer
+                                completion(.success(managedAnswer.toMagicAnswer()))
+                            case .failure(let error):
+                                completion(.failure(networkError))
+                                print(error)
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -25,8 +25,19 @@ class DBClient: NetworkDataProvider {
         newAnswer.type = type
         newAnswer.question = question
         newAnswer.id = UUID()
-        try? managedContext.save()
-        _ = fetchAnswers()
+        let answers = fetchAnswers()
+        var isFound = false
+        for answer in answers where answer.answer == newAnswer.answer {
+            isFound = true
+            print("found new answer \(answer.answer ?? "")")
+        }
+        if !isFound {
+            do {
+                try managedContext.save()
+            } catch {
+                print(error)
+            }
+        }
     }
 
     func fetchAnswers() -> [Ball] {
@@ -40,7 +51,7 @@ class DBClient: NetworkDataProvider {
         return answers
     }
 
-    func getAnswer(question: String, completion: @escaping (Result<MagicResponse?, CallError>) -> Void) {
+    func getAnswer(completion: @escaping (Result<MagicResponse?, CallError>) -> Void) {
         let answers = fetchAnswers()
         if answers.count > 0 {
             let number = Int.random(in: 0..<answers.count)

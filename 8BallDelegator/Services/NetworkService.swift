@@ -15,13 +15,12 @@ class NetworkService: NetworkDataProvider {
         return dateFormatter
     }()
 
-    func getAnswer(
-        question: String,
-        completion: @escaping (Result<MagicResponse?, CallError>) -> Void) {
-            var urlString = BASEURL + "/magic/JSON/\(question)"
-            urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-            self.requestGet(urlString: urlString, completion: completion)
-        }
+    func getAnswer(completion: @escaping (Result<MagicResponse?, CallError>) -> Void) {
+        let question = L10n.questionText
+        var urlString = BASEURL + "/magic/JSON/\(question)"
+        urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        self.requestGet(urlString: urlString, completion: completion)
+    }
 
     private func requestGet<T: Decodable>(
         urlString: String,
@@ -92,9 +91,7 @@ class NetworkService: NetworkDataProvider {
 
 // MARK: - NetworkDataProvider
 protocol NetworkDataProvider {
-    func getAnswer(
-        question: String,
-        completion: @escaping (Result<MagicResponse?, CallError>) -> Void)
+    func getAnswer(completion: @escaping (Result<MagicResponse?, CallError>) -> Void)
 }
 
 enum CallError: Error {

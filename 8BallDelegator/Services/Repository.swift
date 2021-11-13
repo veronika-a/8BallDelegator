@@ -14,9 +14,7 @@ class Repository {
         self.networkDataProvider = networkDataProvider
     }
 
-    func getAnswer(
-        question: String,
-        completion: @escaping (Result<MagicResponse?, CallError>) -> Void) {
-        networkDataProvider.getAnswer(question: question, completion: completion)
+    func getAnswer(completion: @escaping (Result<MagicResponse?, CallError>) -> Void) {
+        networkDataProvider.getAnswer(completion: completion)
     }
 }
