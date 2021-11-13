@@ -113,3 +113,9 @@ struct Magic: Codable {
     var answer: String?
     var type: String?
 }
+
+extension Magic {
+    func toManagedAnswer() -> ManagedAnswer {
+        return ManagedAnswer(question: question, answer: answer, type: type)
+    }
+}

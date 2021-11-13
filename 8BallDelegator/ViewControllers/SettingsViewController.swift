@@ -1,5 +1,5 @@
 //
-//  SettingsVC.swift
+//  SettingsViewController.swift
 //  8BallDelegator
 //
 //  Created by Veronika Andrianova on 18.10.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsVC: UIViewController {
+class SettingsViewController: UIViewController {
 
     var cells: [SettingsCell] = []
 
@@ -76,7 +76,7 @@ class SettingsVC: UIViewController {
 }
 
 // MARK: - TableView Delegates
-extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
+extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         cells.count
     }
