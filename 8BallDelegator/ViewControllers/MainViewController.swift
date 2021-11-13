@@ -7,18 +7,12 @@
 
 import UIKit
 import Foundation
+import OSLog
 
 struct PresentableMagicAnswer {
     var answer: String?
-    var color: UIColor?
-    var errorMessage: String?
+    var color: ColorAsset?
     var selectionHandler: (() -> Void)?
-}
-
-extension MagicAnswer {
-    func toPresentableMagicAnswer() -> PresentableMagicAnswer {
-        return PresentableMagicAnswer(answer: answer, color: UIColor())
-    }
 }
 
 class MainViewController: UIViewController {
@@ -79,17 +73,26 @@ class MainViewController: UIViewController {
                 print(presentableMagicAnswer)
                 DispatchQueue.main.async {
                     self?.answerLabel.text = presentableMagicAnswer.answer ?? ""
+                    self?.answerLabel.textColor = presentableMagicAnswer.color?.color
                 }
             case .failure(let error):
                 switch error {
-                case .networkError(let error):
-                    self?.errorMessage(error: error)
+                case .networkError(let networkError):
+                    self?.getDBAnswer()
+                    print(networkError)
                 default:
-                    self?.errorMessage(error: "\(error.localizedDescription)")
                     print(error)
                 }
             }
         })
+    }
+
+    func getDBAnswer() {
+        var repository = Repository.init(networkDataProvider: DBClient())
+        mainViewModel = MainViewModel(model: MainModel(repository: repository))
+        getAnswer()
+        repository = Repository.init(networkDataProvider: NetworkService())
+        mainViewModel = MainViewModel(model: MainModel(repository: repository))
     }
 
     // Enable detection of shake motion

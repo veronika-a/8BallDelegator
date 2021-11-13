@@ -8,13 +8,21 @@
 struct MagicAnswer {
     var answer: String?
     var type: String?
-    var error: CallError?
     var selectionHandler: (() -> Void)?
 }
 
-extension ManagedAnswer {
-    func toMagicAnswer() -> MagicAnswer {
-        return MagicAnswer(answer: answer, type: type, error: error)
+extension MagicAnswer {
+    func toPresentableMagicAnswer() -> PresentableMagicAnswer {
+        var color: ColorAsset?
+        switch type {
+        case "Contrary":
+            color = Asset.Colors.contrary
+        case "Affirmative":
+            color = Asset.Colors.affirmative
+        default:
+            color = Asset.Colors.neutral
+        }
+        return PresentableMagicAnswer(answer: answer, color: color)
     }
 }
 

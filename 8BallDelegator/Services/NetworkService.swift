@@ -17,7 +17,7 @@ class NetworkService: NetworkDataProvider {
 
     func getAnswer(
         question: String,
-        completion: @escaping (Result<MagicJsonResponse<Magic>?, CallError>) -> Void) {
+        completion: @escaping (Result<MagicResponse?, CallError>) -> Void) {
             var urlString = BASEURL + "/magic/JSON/\(question)"
             urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
             self.requestGet(urlString: urlString, completion: completion)
@@ -25,7 +25,7 @@ class NetworkService: NetworkDataProvider {
 
     private func requestGet<T: Decodable>(
         urlString: String,
-        completion: @escaping (Result<MagicJsonResponse<T>?, CallError>) -> Void) {
+        completion: @escaping (Result<T?, CallError>) -> Void) {
             guard let url = URL(string: urlString) else { return }
             var urlRequest = URLRequest(url: url)
             let requestHeaders: [String: String] = [
@@ -51,7 +51,7 @@ class NetworkService: NetworkDataProvider {
                     if let httpResponse = response as? HTTPURLResponse {
                         switch httpResponse.statusCode {
                         case 200..<300:
-                            self?.decodeJson(type: MagicJsonResponse<T>.self, from: data) { (result) in
+                            self?.decodeJson(type: T.self, from: data) { (result) in
                                 switch result {
                                 case .success(let decode):
                                     guard let decode = decode else {return}
@@ -94,7 +94,7 @@ class NetworkService: NetworkDataProvider {
 protocol NetworkDataProvider {
     func getAnswer(
         question: String,
-        completion: @escaping (Result<MagicJsonResponse<Magic>?, CallError>) -> Void)
+        completion: @escaping (Result<MagicResponse?, CallError>) -> Void)
 }
 
 enum CallError: Error {
@@ -104,8 +104,8 @@ enum CallError: Error {
     case unknownWithoutError
 }
 
-struct MagicJsonResponse<T: Decodable>: Decodable {
-    public var magic: T?
+struct MagicResponse: Decodable {
+    public var magic: Magic?
 }
 
 struct Magic: Codable {
@@ -114,8 +114,8 @@ struct Magic: Codable {
     var type: String?
 }
 
-extension Magic {
+extension MagicResponse {
     func toManagedAnswer() -> ManagedAnswer {
-        return ManagedAnswer(question: question, answer: answer, type: type)
+        return ManagedAnswer(question: magic?.question, answer: magic?.answer, type: magic?.type)
     }
 }

@@ -16,7 +16,7 @@ class Repository {
 
     func getAnswer(
         question: String,
-        completion: @escaping (Result<MagicJsonResponse<Magic>?, CallError>) -> Void) {
+        completion: @escaping (Result<MagicResponse?, CallError>) -> Void) {
         networkDataProvider.getAnswer(question: question, completion: completion)
     }
 }

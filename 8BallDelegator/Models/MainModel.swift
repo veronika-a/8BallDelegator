@@ -10,7 +10,12 @@ struct ManagedAnswer {
     var question: String?
     var answer: String?
     var type: String?
-    var error: CallError?
+}
+
+extension ManagedAnswer {
+    func toMagicAnswer() -> MagicAnswer {
+        return MagicAnswer(answer: answer, type: type)
+    }
 }
 
 class MainModel {
@@ -27,15 +32,20 @@ class MainModel {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let success):
-                    guard let success = success,
-                          let magic = success.magic else {return}
-                    let managedAnswer = magic.toManagedAnswer()
+                    guard let success = success, let magic = success.magic else {return}
+                    self.saveToDB(magic: magic)
+                    let managedAnswer = success.toManagedAnswer()
                     completion(.success(managedAnswer.toMagicAnswer()))
                 case .failure(let error):
                     completion(.failure(error))
                 }
             }
         }
+    }
+
+    func saveToDB(magic: Magic) {
+        guard let answer = magic.answer, let type = magic.type, let question = magic.question else {return}
+        DBClient().saveAnswer(answer: answer, type: type, question: question)
     }
 }
 
