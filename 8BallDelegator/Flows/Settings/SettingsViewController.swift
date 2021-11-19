@@ -9,26 +9,22 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
-    let settingsViewModel: SettingsViewModel
+    var settingsViewModel: SettingsViewModel?
     var cells: [SettingsCell] = []
+    lazy var tableView = UITableView()
 
-    required init?(coder: NSCoder, settingsViewModel: SettingsViewModel) {
+    required init?(settingsViewModel: SettingsViewModel) {
+        super.init(nibName: nil, bundle: nil)
         self.settingsViewModel = settingsViewModel
-        super.init(coder: coder)
-      }
+    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - IBOutlet
-    @IBOutlet weak var tableView: UITableView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        tableView.delegate = self
-        tableView.dataSource = self
+        createView()
         loadCells()
     }
 
@@ -96,7 +92,62 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+extension SettingsViewController {
+    func createView() {
+        view.backgroundColor = Asset.Colors.mainBackground.color
+        let backButton = createNavigationButton(isRight: false, image: Asset.Assets.backArrow.image)
+        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+        let tableView = createSettingsTableView()
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(backButton.snp.bottom).offset(12)
+            $0.right.equalTo(view.safeAreaLayoutGuide).inset(24)
+            $0.left.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+
+    func createSettingsTableView() -> UITableView {
+        tableView = UITableView(frame: .zero)
+        tableView.backgroundColor = Asset.Colors.mainBackground.color
+        self.view.addSubview(tableView)
+        tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: "SettingsTableViewCell")
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.rowHeight = 72
+        return tableView
+    }
+}
+
 class SettingsTableViewCell: UITableViewCell {
-    @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var typeLabel: UILabel!
+    var iconImageView: UIImageView!
+    var typeLabel: UILabel!
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.configure()
+    }
+
+    func configure() {
+        self.backgroundColor = Asset.Colors.mainBackground.color
+        self.selectionStyle = .none
+        iconImageView = UIImageView()
+        self.contentView.addSubview(iconImageView)
+        iconImageView.snp.makeConstraints {
+            $0.left.equalToSuperview().offset(24)
+            $0.height.width.equalTo(24)
+            $0.centerY.equalToSuperview()
+        }
+
+        typeLabel = UILabel(frame: .zero)
+        typeLabel.font = typeLabel.font.withSize(15)
+        self.contentView.addSubview(typeLabel)
+        typeLabel.snp.makeConstraints {
+            $0.left.equalTo(iconImageView.snp.right).offset(12)
+            $0.centerY.equalToSuperview()
+            $0.right.equalToSuperview().offset(24)
+        }
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
