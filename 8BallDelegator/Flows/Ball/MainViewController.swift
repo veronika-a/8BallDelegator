@@ -8,6 +8,7 @@
 import UIKit
 import Foundation
 import OSLog
+import SnapKit
 
 class MainViewController: UIViewController {
 
@@ -15,9 +16,9 @@ class MainViewController: UIViewController {
     var mainViewModel: MainViewModel?
     var presentableMagicAnswer: PresentableMagicAnswer?
 
-    required init?(coder: NSCoder, mainViewModel: MainViewModel) {
+    required init?(mainViewModel: MainViewModel) {
+        super.init(nibName: nil, bundle: nil)
         self.mainViewModel = mainViewModel
-        super.init(coder: coder)
       }
 
     required init?(coder: NSCoder) {
@@ -27,6 +28,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         changeAppearance()
+        createView()
     }
 
     private func changeAppearance() {
@@ -100,5 +102,37 @@ class MainViewController: UIViewController {
 
     @IBAction func getAnswerWithoutShake(_ sender: Any) {
         getAnswer()
+    }
+}
+
+extension MainViewController {
+    func createView() {
+        view.backgroundColor = Asset.Colors.mainBackground.color
+
+        let ball = CornerRadiusView()
+        ball.cornerRadius = 125
+        ball.borderColor = Asset.Colors.whiteOnly.color
+        ball.borderWidth = 1
+        ball.backgroundColor = Asset.Colors.ballBackground.color
+        self.view.addSubview(ball)
+        let ballHight: CGFloat = 250
+        ball.snp.makeConstraints { (make) -> Void in
+            make.width.height.equalTo(ballHight)
+            make.center.equalTo(self.view)
+        }
+        let smallBall = CornerRadiusView()
+        smallBall.cornerRadius = ball.cornerRadius / 2
+        smallBall.backgroundColor = Asset.Colors.whiteOnly.color
+        ball.addSubview(smallBall)
+        smallBall.snp.makeConstraints { (make) -> Void in
+            make.width.height.equalTo(ballHight/2)
+            make.center.equalTo(ball)
+        }
+//        let eight = UILabel()
+//        eight.textColor = Asset.Colors.accentColor.color
+//        eight.font = eight.font.withSize(52)
+//        eight.snp.makeConstraints { (make) -> Void in
+//            make.center.equalTo(smallBall)
+//        }
     }
 }
