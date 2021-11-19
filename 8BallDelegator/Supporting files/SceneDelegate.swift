@@ -19,7 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         let storyboardMain = UIStoryboard(name: "Main", bundle: Bundle.main)
         let repository = Repository.init(networkDataProvider: NetworkService())
-        let mainViewModel = MainViewModel(model: MainModel(repository: repository))
+        let dbClient = DBClient.init()
+        let mainViewModel = MainViewModel(model: MainModel(repository: repository, dbClient: dbClient))
 
         let mainVC = storyboardMain.instantiateViewController(identifier: "Main", creator: { coder in
             return MainViewController(coder: coder, mainViewModel: mainViewModel)

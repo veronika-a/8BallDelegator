@@ -9,13 +9,30 @@ import Foundation
 import CoreData
 import UIKit
 
-class DBClient: NetworkDataProvider {
+protocol DBProtocol {
+    func saveAnswer(answer: String?, type: String?, question: String?)
+    func fetchAnswers() -> [Ball]
+    func getAnswer(completion: @escaping (Result<MagicResponse?, CallError>) -> Void)
+}
+
+class DBClient: DBProtocol, NetworkDataProvider {
 
     let managedContext: NSManagedObjectContext
     var balls: [NSManagedObject] = []
 
-    init(managedContext: NSManagedObjectContext) {
-        self.managedContext = managedContext
+    // MARK: - Core Data stack
+    var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Balls")
+        container.loadPersistentStores(completionHandler: { (_, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
+
+    init() {
+        self.managedContext = self.persistentContainer.viewContext
     }
 
     func saveAnswer(answer: String?, type: String?, question: String?) {
