@@ -10,13 +10,11 @@ import UIKit
 
 class MainModel {
     private var repository: Repository
-    private var dbClient: DBProtocol
     private var managedAnswer: ManagedAnswer?
     weak var delegate: ReloadDataDelegate?
 
-    init(repository: Repository, dbClient: DBProtocol) {
+    init(repository: Repository) {
         self.repository = repository
-        self.dbClient = dbClient
     }
 
     func getAnswer(completion: @escaping (Result<MagicAnswer?, CallError>) -> Void) {
@@ -24,24 +22,13 @@ class MainModel {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let success):
-                    guard let success = success, let magic = success.magic else {return}
-                    self?.dbClient.saveAnswer(answer: magic.answer, type: magic.type, question: magic.question)
+                    guard let success = success else {return}
                     let managedAnswer = success.toManagedAnswer()
                     self?.managedAnswer = managedAnswer
                     completion(.success(managedAnswer.toMagicAnswer()))
                 case .failure(let networkError):
-                    self?.dbClient.getAnswer { result in
-                        switch result {
-                        case .success(let success):
-                            guard let success = success else {return}
-                            let managedAnswer = success.toManagedAnswer()
-                            self?.managedAnswer = managedAnswer
-                            completion(.success(managedAnswer.toMagicAnswer()))
-                        case .failure(let error):
-                            completion(.failure(networkError))
-                            print(error)
-                        }
-                    }
+                    completion(.failure(networkError))
+                    print(networkError)
                 }
             }
         }
