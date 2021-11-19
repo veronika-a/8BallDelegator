@@ -15,7 +15,7 @@ protocol DBProtocol {
     func getAnswer(completion: @escaping (Result<MagicResponse?, CallError>) -> Void)
 }
 
-class DBClient: DBProtocol, NetworkDataProvider {
+class DBClient: DBProtocol {
 
     let managedContext: NSManagedObjectContext
     var balls: [NSManagedObject] = []
