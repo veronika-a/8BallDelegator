@@ -11,15 +11,15 @@ import UIKit
 
 class DBClient: NetworkDataProvider {
 
-    var managedContext: NSManagedObjectContext!
+    let managedContext: NSManagedObjectContext
     var balls: [NSManagedObject] = []
 
-    init() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
-        managedContext = appDelegate.persistentContainer.viewContext
+    init(managedContext: NSManagedObjectContext) {
+        self.managedContext = managedContext
     }
 
-    func saveAnswer(answer: String, type: String, question: String) {
+    func saveAnswer(answer: String?, type: String?, question: String?) {
+        guard let answer = answer, let type = type, let question = question else {return}
         let newAnswer = Ball(context: managedContext)
         newAnswer.answer = answer
         newAnswer.type = type

@@ -9,12 +9,6 @@ import UIKit
 import Foundation
 import OSLog
 
-struct PresentableMagicAnswer {
-    var answer: String?
-    var color: ColorAsset?
-    var selectionHandler: (() -> Void)?
-}
-
 class MainViewController: UIViewController {
 
     @IBOutlet weak var answerLabel: UILabel!
@@ -59,9 +53,12 @@ class MainViewController: UIViewController {
     }
 
     private func toSettings() {
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        guard let settingsVC = storyboard.instantiateViewController(withIdentifier: "Settings")
-                as? SettingsViewController else { return }
+        let settingsModel = SettingsModel()
+        let settingsViewModel = SettingsViewModel(settingsModel: settingsModel)
+
+        guard let settingsVC = storyboard?.instantiateViewController(identifier: "Settings", creator: { coder in
+            return SettingsViewController(coder: coder, settingsViewModel: settingsViewModel)
+        }) else {return}
         navigationController?.pushViewController(settingsVC, animated: true)
     }
 

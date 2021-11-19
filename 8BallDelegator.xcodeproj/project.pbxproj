@@ -20,6 +20,12 @@
 		944F6D5B27401C690035CC45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944F6D5A27401C690035CC45 /* AppDelegate.swift */; };
 		944F6D5E274029810035CC45 /* Ball+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944F6D5C274029810035CC45 /* Ball+CoreDataClass.swift */; };
 		944F6D5F274029810035CC45 /* Ball+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944F6D5D274029810035CC45 /* Ball+CoreDataProperties.swift */; };
+		949B87002747BE6A00509C19 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B86FF2747BE6A00509C19 /* SettingsViewModel.swift */; };
+		949B87022747BE7800509C19 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B87012747BE7800509C19 /* SettingsModel.swift */; };
+		949B87052747BFAC00509C19 /* ManagedAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B87042747BFAC00509C19 /* ManagedAnswer.swift */; };
+		949B87072747BFCA00509C19 /* PresentableMagicAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B87062747BFCA00509C19 /* PresentableMagicAnswer.swift */; };
+		949B87092747BFE700509C19 /* MagicAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B87082747BFE700509C19 /* MagicAnswer.swift */; };
+		949B870C2747D0D400509C19 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B870B2747D0D400509C19 /* SettingsCell.swift */; };
 		94B5FB732739761F00CBBB54 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B5FB722739761F00CBBB54 /* Repository.swift */; };
 		94F2D6F7273D60A1002A5D9D /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 94F2D6F5273D5CF1002A5D9D /* swiftgen.yml */; };
 		94F2D6F9273D623A002A5D9D /* XCAssets+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F2D6F8273D623A002A5D9D /* XCAssets+Generated.swift */; };
@@ -47,6 +53,12 @@
 		944F6D5A27401C690035CC45 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		944F6D5C274029810035CC45 /* Ball+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ball+CoreDataClass.swift"; sourceTree = "<group>"; };
 		944F6D5D274029810035CC45 /* Ball+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ball+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		949B86FF2747BE6A00509C19 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		949B87012747BE7800509C19 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		949B87042747BFAC00509C19 /* ManagedAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedAnswer.swift; sourceTree = "<group>"; };
+		949B87062747BFCA00509C19 /* PresentableMagicAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentableMagicAnswer.swift; sourceTree = "<group>"; };
+		949B87082747BFE700509C19 /* MagicAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicAnswer.swift; sourceTree = "<group>"; };
+		949B870B2747D0D400509C19 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		94B5FB722739761F00CBBB54 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		94F2D6F5273D5CF1002A5D9D /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		94F2D6F8273D623A002A5D9D /* XCAssets+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCAssets+Generated.swift"; sourceTree = "<group>"; };
@@ -113,13 +125,11 @@
 		94392F13271D749C0073F85D /* 8BallDelegator */ = {
 			isa = PBXGroup;
 			children = (
+				949B86FC2747BDDD00509C19 /* Flows */,
 				94F2D719273FCD3F002A5D9D /* CoreData */,
 				94F2D6F6273D5D5C002A5D9D /* Generated */,
 				94392F2A271D787C0073F85D /* Services */,
 				94392F28271D781A0073F85D /* Storyboards */,
-				94392F29271D784B0073F85D /* ViewControllers */,
-				94F2D70A273EA0CF002A5D9D /* ViewModels */,
-				94F2D70B273EA100002A5D9D /* Models */,
 				94392F30271D922E0073F85D /* UI Components */,
 				94392F2B271D78A50073F85D /* Supporting files */,
 			);
@@ -134,15 +144,6 @@
 				94F2D704273D6C83002A5D9D /* Localizable.strings */,
 			);
 			path = Storyboards;
-			sourceTree = "<group>";
-		};
-		94392F29271D784B0073F85D /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				94392F18271D749C0073F85D /* MainViewController.swift */,
-				94392F2C271D79E30073F85D /* SettingsViewController.swift */,
-			);
-			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		94392F2A271D787C0073F85D /* Services */ = {
@@ -177,6 +178,55 @@
 			path = "UI Components";
 			sourceTree = "<group>";
 		};
+		949B86FC2747BDDD00509C19 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				949B86FE2747BDFD00509C19 /* Ball */,
+				949B86FD2747BDF300509C19 /* Settings */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		949B86FD2747BDF300509C19 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				949B870A2747D0B200509C19 /* Cells */,
+				94392F2C271D79E30073F85D /* SettingsViewController.swift */,
+				949B86FF2747BE6A00509C19 /* SettingsViewModel.swift */,
+				949B87012747BE7800509C19 /* SettingsModel.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		949B86FE2747BDFD00509C19 /* Ball */ = {
+			isa = PBXGroup;
+			children = (
+				949B87032747BF9900509C19 /* Models */,
+				94392F18271D749C0073F85D /* MainViewController.swift */,
+				94F2D70C273EA12A002A5D9D /* MainViewModel.swift */,
+				94F2D710273EA155002A5D9D /* MainModel.swift */,
+			);
+			path = Ball;
+			sourceTree = "<group>";
+		};
+		949B87032747BF9900509C19 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				949B87042747BFAC00509C19 /* ManagedAnswer.swift */,
+				949B87062747BFCA00509C19 /* PresentableMagicAnswer.swift */,
+				949B87082747BFE700509C19 /* MagicAnswer.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		949B870A2747D0B200509C19 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				949B870B2747D0D400509C19 /* SettingsCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		94F2D6F6273D5D5C002A5D9D /* Generated */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,22 +241,6 @@
 			children = (
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		94F2D70A273EA0CF002A5D9D /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				94F2D70C273EA12A002A5D9D /* MainViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		94F2D70B273EA100002A5D9D /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				94F2D710273EA155002A5D9D /* MainModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		94F2D719273FCD3F002A5D9D /* CoreData */ = {
@@ -357,6 +391,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				949B87052747BFAC00509C19 /* ManagedAnswer.swift in Sources */,
+				949B87072747BFCA00509C19 /* PresentableMagicAnswer.swift in Sources */,
+				949B87022747BE7800509C19 /* SettingsModel.swift in Sources */,
 				94F2D6F9273D623A002A5D9D /* XCAssets+Generated.swift in Sources */,
 				94392F36271D9DF10073F85D /* CornerRadiusButton.swift in Sources */,
 				94F2D701273D6B9C002A5D9D /* Strings.swift in Sources */,
@@ -364,7 +401,10 @@
 				94392F2D271D79E30073F85D /* SettingsViewController.swift in Sources */,
 				94B5FB732739761F00CBBB54 /* Repository.swift in Sources */,
 				94F2D729273FD3C2002A5D9D /* Balls.xcdatamodeld in Sources */,
+				949B870C2747D0D400509C19 /* SettingsCell.swift in Sources */,
 				944F6D5F274029810035CC45 /* Ball+CoreDataProperties.swift in Sources */,
+				949B87092747BFE700509C19 /* MagicAnswer.swift in Sources */,
+				949B87002747BE6A00509C19 /* SettingsViewModel.swift in Sources */,
 				94392F17271D749C0073F85D /* SceneDelegate.swift in Sources */,
 				94F2D711273EA155002A5D9D /* MainModel.swift in Sources */,
 				944F6D5B27401C690035CC45 /* AppDelegate.swift in Sources */,

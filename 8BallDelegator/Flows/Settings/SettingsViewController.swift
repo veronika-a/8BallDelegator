@@ -9,16 +9,16 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    let settingsViewModel: SettingsViewModel
     var cells: [SettingsCell] = []
 
-    struct SettingsCell {
-        var cellType: CellType?
-        var img: UIImage?
-        var labelText: String?
-    }
-    enum CellType {
-        case contactSupport
-        case appearance
+    required init?(coder: NSCoder, settingsViewModel: SettingsViewModel) {
+        self.settingsViewModel = settingsViewModel
+        super.init(coder: coder)
+      }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - IBOutlet
