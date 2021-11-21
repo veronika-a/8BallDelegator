@@ -105,25 +105,12 @@ class MainViewController: UIViewController {
 private extension MainViewController {
     func createView() {
         view.backgroundColor = Asset.Colors.mainBackground.color
-        // TODO: - create NavigationView
-        let navigationButton = CornerRadiusButton()
-        navigationButton.cornerRadius = 16
-        navigationButton.backgroundColor = Asset.Colors.buttonGrey.color
-        navigationButton.titleLabel?.textColor = Asset.Colors.titles.color
-        navigationButton.addTarget(self, action: #selector(settings), for: .touchUpInside)
-        view.addSubview(navigationButton)
-        navigationButton.snp.makeConstraints { (make) -> Void in
-            make.height.equalTo(52)
-            make.width.equalTo(48)
-            make.top.right.equalTo(view.safeAreaLayoutGuide).inset(24)
-        }
-        let imageView = UIImageView()
-        imageView.image = Asset.Assets.settings.image
-        imageView.tintColor = Asset.Colors.secondaryText.color
-        navigationButton.addSubview(imageView)
-        imageView.snp.makeConstraints { (make) -> Void in
-            make.height.width.equalTo(24)
-            make.center.equalToSuperview()
+        let navigationView = NavigationView()
+        navigationView.createNavigationButton(isRight: true, image: Asset.Assets.settings.image, action: settings)
+        view.addSubview(navigationView)
+        navigationView.snp.makeConstraints { (make) -> Void in
+            make.left.top.right.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(100)
         }
 
         let ball = createEightBall()

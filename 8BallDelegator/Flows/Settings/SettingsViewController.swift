@@ -95,30 +95,19 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 private extension SettingsViewController {
     func createView() {
         view.backgroundColor = Asset.Colors.mainBackground.color
-        let navigationButton = CornerRadiusButton()
-        navigationButton.cornerRadius = 16
-        navigationButton.backgroundColor = Asset.Colors.buttonGrey.color
-        navigationButton.titleLabel?.textColor = Asset.Colors.titles.color
-        navigationButton.addTarget(self, action: #selector(back), for: .touchUpInside)
-        view.addSubview(navigationButton)
-        navigationButton.snp.makeConstraints { (make) -> Void in
-            make.height.equalTo(52)
-            make.width.equalTo(48)
-            make.top.left.equalTo(view.safeAreaLayoutGuide).inset(24)
-        }
-        let imageView = UIImageView()
-        imageView.image = Asset.Assets.backArrow.image
-        imageView.tintColor = Asset.Colors.secondaryText.color
-        navigationButton.addSubview(imageView)
-        imageView.snp.makeConstraints { (make) -> Void in
-            make.height.width.equalTo(24)
-            make.center.equalToSuperview()
+        let navigationView = NavigationView()
+        navigationView.createNavigationButton(isRight: false, image: Asset.Assets.backArrow.image, action: back)
+        view.addSubview(navigationView)
+        navigationView.snp.makeConstraints { (make) -> Void in
+            make.left.top.right.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(100)
         }
 
         let tableView = createSettingsTableView()
         tableView.snp.makeConstraints {
-            $0.top.equalTo(navigationButton.snp.bottom).offset(24)
-            $0.right.equalTo(view.safeAreaLayoutGuide).inset(12)
+            $0.top.equalTo(navigationView.snp.bottom)
+            $0.right.equalTo(view.safeAreaLayoutGuide).inset(24)
+            $0.left.equalTo(view.safeAreaLayoutGuide).inset(12)
             $0.left.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
