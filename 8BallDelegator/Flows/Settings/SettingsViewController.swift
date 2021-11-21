@@ -9,13 +9,13 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
-    var settingsViewModel: SettingsViewModel?
-    var cells: [SettingsCell] = []
-    lazy var tableView = UITableView()
+    private let settingsViewModel: SettingsViewModel
+    private var cells: [SettingsCell] = []
+    private var tableView = UITableView()
 
     required init?(settingsViewModel: SettingsViewModel) {
-        super.init(nibName: nil, bundle: nil)
         self.settingsViewModel = settingsViewModel
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -28,11 +28,11 @@ class SettingsViewController: UIViewController {
         loadCells()
     }
 
-    func loadCells() {
+    private func loadCells() {
         cells.append(SettingsCell(cellType: .appearance, img: UIImage(named: "Appearance"), labelText: L10n.appearance))
     }
 
-    func selectRow(index: Int) {
+    private func selectRow(index: Int) {
         guard index < cells.count else { return }
         let cell = cells[index]
         switch cell.cellType {
@@ -43,7 +43,7 @@ class SettingsViewController: UIViewController {
         }
     }
 
-    func changeAppearance() {
+    private func changeAppearance() {
         if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
             UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
                 if #available(iOS 13.0, *) {
@@ -61,12 +61,12 @@ class SettingsViewController: UIViewController {
         }
     }
 
-    func toMain() {
+    private func toMain() {
         navigationController?.popViewController(animated: true)
     }
 
     // MARK: - IBAction
-    @IBAction func back(_ sender: Any) {
+    @objc func back() {
         toMain()
     }
 }
@@ -92,15 +92,33 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension SettingsViewController {
+private extension SettingsViewController {
     func createView() {
         view.backgroundColor = Asset.Colors.mainBackground.color
-        let backButton = createNavigationButton(isRight: false, image: Asset.Assets.backArrow.image)
-        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+        let navigationButton = CornerRadiusButton()
+        navigationButton.cornerRadius = 16
+        navigationButton.backgroundColor = Asset.Colors.buttonGrey.color
+        navigationButton.titleLabel?.textColor = Asset.Colors.titles.color
+        navigationButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+        view.addSubview(navigationButton)
+        navigationButton.snp.makeConstraints { (make) -> Void in
+            make.height.equalTo(52)
+            make.width.equalTo(48)
+            make.top.left.equalTo(view.safeAreaLayoutGuide).inset(24)
+        }
+        let imageView = UIImageView()
+        imageView.image = Asset.Assets.backArrow.image
+        imageView.tintColor = Asset.Colors.secondaryText.color
+        navigationButton.addSubview(imageView)
+        imageView.snp.makeConstraints { (make) -> Void in
+            make.height.width.equalTo(24)
+            make.center.equalToSuperview()
+        }
+
         let tableView = createSettingsTableView()
         tableView.snp.makeConstraints {
-            $0.top.equalTo(backButton.snp.bottom).offset(12)
-            $0.right.equalTo(view.safeAreaLayoutGuide).inset(24)
+            $0.top.equalTo(navigationButton.snp.bottom).offset(24)
+            $0.right.equalTo(view.safeAreaLayoutGuide).inset(12)
             $0.left.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -114,40 +132,5 @@ extension SettingsViewController {
         tableView.delegate = self
         tableView.rowHeight = 72
         return tableView
-    }
-}
-
-class SettingsTableViewCell: UITableViewCell {
-    var iconImageView: UIImageView!
-    var typeLabel: UILabel!
-
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.configure()
-    }
-
-    func configure() {
-        self.backgroundColor = Asset.Colors.mainBackground.color
-        self.selectionStyle = .none
-        iconImageView = UIImageView()
-        self.contentView.addSubview(iconImageView)
-        iconImageView.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(24)
-            $0.height.width.equalTo(24)
-            $0.centerY.equalToSuperview()
-        }
-
-        typeLabel = UILabel(frame: .zero)
-        typeLabel.font = typeLabel.font.withSize(15)
-        self.contentView.addSubview(typeLabel)
-        typeLabel.snp.makeConstraints {
-            $0.left.equalTo(iconImageView.snp.right).offset(12)
-            $0.centerY.equalToSuperview()
-            $0.right.equalToSuperview().offset(24)
-        }
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

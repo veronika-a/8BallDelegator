@@ -102,7 +102,7 @@ enum CallError: Error {
 }
 
 struct MagicResponse: Decodable {
-    public var magic: Magic?
+    var magic: Magic?
 }
 
 struct Magic: Codable {

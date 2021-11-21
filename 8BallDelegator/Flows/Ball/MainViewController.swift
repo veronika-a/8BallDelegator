@@ -12,13 +12,13 @@ import SnapKit
 
 class MainViewController: UIViewController {
 
-    lazy var answerLabel = UILabel()
-    var mainViewModel: MainViewModel?
-    var presentableMagicAnswer: PresentableMagicAnswer?
+    private var answerLabel = UILabel()
+    private let mainViewModel: MainViewModel
+    private var presentableMagicAnswer: PresentableMagicAnswer?
 
     required init?(mainViewModel: MainViewModel) {
-        super.init(nibName: nil, bundle: nil)
         self.mainViewModel = mainViewModel
+        super.init(nibName: nil, bundle: nil)
       }
 
     required init?(coder: NSCoder) {
@@ -45,7 +45,7 @@ class MainViewController: UIViewController {
         }
     }
 
-    public func errorMessage(error: String) {
+    private func errorMessage(error: String) {
         let alert = UIAlertController(
             title: "Error",
             message: "\(error)",
@@ -62,7 +62,7 @@ class MainViewController: UIViewController {
     }
 
     private func getAnswer() {
-        mainViewModel?.getAnswer(currentAnswer: presentableMagicAnswer?.answer, completion: { [weak self] result in
+        mainViewModel.getAnswer(currentAnswer: presentableMagicAnswer?.answer, completion: { [weak self] result in
             switch result {
             case .success(let success):
                 guard let presentableMagicAnswer = success else {return}
@@ -93,7 +93,7 @@ class MainViewController: UIViewController {
     }
 
     // MARK: - IBAction
-    @IBAction func settings(_ sender: Any) {
+    @objc func settings() {
         toSettings()
     }
 
@@ -102,14 +102,31 @@ class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController {
+private extension MainViewController {
     func createView() {
         view.backgroundColor = Asset.Colors.mainBackground.color
-        let settingsButton = createNavigationButton(isRight: true, image: Asset.Assets.settings.image)
-        settingsButton.addTarget(self, action: #selector(settings), for: .touchUpInside)
+        // TODO: - create NavigationView
+        let navigationButton = CornerRadiusButton()
+        navigationButton.cornerRadius = 16
+        navigationButton.backgroundColor = Asset.Colors.buttonGrey.color
+        navigationButton.titleLabel?.textColor = Asset.Colors.titles.color
+        navigationButton.addTarget(self, action: #selector(settings), for: .touchUpInside)
+        view.addSubview(navigationButton)
+        navigationButton.snp.makeConstraints { (make) -> Void in
+            make.height.equalTo(52)
+            make.width.equalTo(48)
+            make.top.right.equalTo(view.safeAreaLayoutGuide).inset(24)
+        }
+        let imageView = UIImageView()
+        imageView.image = Asset.Assets.settings.image
+        imageView.tintColor = Asset.Colors.secondaryText.color
+        navigationButton.addSubview(imageView)
+        imageView.snp.makeConstraints { (make) -> Void in
+            make.height.width.equalTo(24)
+            make.center.equalToSuperview()
+        }
 
         let ball = createEightBall()
-
         let needAnswerLabel = UILabel()
         needAnswerLabel.text = "NEED SOME ANSWERS?"
         needAnswerLabel.textColor = Asset.Colors.titles.color
@@ -136,7 +153,7 @@ extension MainViewController {
         shakeButton.addTarget(self, action: #selector(getAnswerWithoutShake), for: .touchUpInside)
         shakeButton.setTitle("Shake", for: .normal)
         shakeButton.titleLabel?.font = needAnswerLabel.font.withSize(17)
-        shakeButton.titleLabel?.textColor = Asset.Colors.titles.color
+        shakeButton.setTitleColor(Asset.Colors.titles.color, for: .normal)
         view.addSubview(shakeButton)
         shakeButton.snp.makeConstraints { (make) -> Void in
             make.bottom.left.right.equalTo(view.safeAreaLayoutGuide).inset(24)

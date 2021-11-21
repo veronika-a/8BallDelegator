@@ -8,7 +8,7 @@
 import Foundation
 
 class SettingsViewModel {
-    let settingsModel: SettingsModel
+    private let settingsModel: SettingsModel
 
     init(settingsModel: SettingsModel) {
         self.settingsModel = settingsModel

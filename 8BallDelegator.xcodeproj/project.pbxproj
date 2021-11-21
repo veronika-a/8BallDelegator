@@ -26,7 +26,7 @@
 		949B87092747BFE700509C19 /* MagicAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B87082747BFE700509C19 /* MagicAnswer.swift */; };
 		949B870C2747D0D400509C19 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B870B2747D0D400509C19 /* SettingsCell.swift */; };
 		949B870E2747DFFB00509C19 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 949B870D2747DFFB00509C19 /* .swiftlint.yml */; };
-		949B87102748367200509C19 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B870F2748367200509C19 /* UIViewController.swift */; };
+		949B8712274AA37900509C19 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B8711274AA37900509C19 /* SettingsTableViewCell.swift */; };
 		94B5FB732739761F00CBBB54 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B5FB722739761F00CBBB54 /* Repository.swift */; };
 		94F2D6F7273D60A1002A5D9D /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 94F2D6F5273D5CF1002A5D9D /* swiftgen.yml */; };
 		94F2D6F9273D623A002A5D9D /* XCAssets+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F2D6F8273D623A002A5D9D /* XCAssets+Generated.swift */; };
@@ -61,7 +61,7 @@
 		949B87082747BFE700509C19 /* MagicAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicAnswer.swift; sourceTree = "<group>"; };
 		949B870B2747D0D400509C19 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		949B870D2747DFFB00509C19 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		949B870F2748367200509C19 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		949B8711274AA37900509C19 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		94B5FB722739761F00CBBB54 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		94F2D6F5273D5CF1002A5D9D /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		94F2D6F8273D623A002A5D9D /* XCAssets+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCAssets+Generated.swift"; sourceTree = "<group>"; };
@@ -176,7 +176,6 @@
 			children = (
 				94392F33271D944B0073F85D /* CornerRadiusView.swift */,
 				94392F35271D9DF10073F85D /* CornerRadiusButton.swift */,
-				949B870F2748367200509C19 /* UIViewController.swift */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -226,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				949B870B2747D0D400509C19 /* SettingsCell.swift */,
+				949B8711274AA37900509C19 /* SettingsTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -396,11 +396,11 @@
 			files = (
 				949B87052747BFAC00509C19 /* ManagedAnswer.swift in Sources */,
 				949B87072747BFCA00509C19 /* PresentableMagicAnswer.swift in Sources */,
+				949B8712274AA37900509C19 /* SettingsTableViewCell.swift in Sources */,
 				949B87022747BE7800509C19 /* SettingsModel.swift in Sources */,
 				94F2D6F9273D623A002A5D9D /* XCAssets+Generated.swift in Sources */,
 				94392F36271D9DF10073F85D /* CornerRadiusButton.swift in Sources */,
 				94F2D701273D6B9C002A5D9D /* Strings.swift in Sources */,
-				949B87102748367200509C19 /* UIViewController.swift in Sources */,
 				94392F19271D749C0073F85D /* MainViewController.swift in Sources */,
 				94392F2D271D79E30073F85D /* SettingsViewController.swift in Sources */,
 				94B5FB732739761F00CBBB54 /* Repository.swift in Sources */,
