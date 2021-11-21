@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--MainVC-->
+        <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="Main" id="BYZ-38-t0r" customClass="MainVC" customModule="_BallDelegator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Main" id="BYZ-38-t0r" customClass="MainViewController" customModule="_BallDelegator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C9q-HF-YYf" customClass="CornerRadiusView" customModule="_BallDelegator" customModuleProvider="target">
-                                <rect key="frame" x="82" y="228" width="250" height="250"/>
+                                <rect key="frame" x="175" y="75" width="250" height="250"/>
                                 <color key="backgroundColor" name="BallGradientBottom"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="QLc-Vy-s8X"/>
@@ -37,7 +35,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzW-dB-yfd" customClass="CornerRadiusView" customModule="_BallDelegator" customModuleProvider="target">
-                                <rect key="frame" x="144.5" y="290.5" width="125" height="125"/>
+                                <rect key="frame" x="237.5" y="137.5" width="125" height="125"/>
                                 <color key="backgroundColor" name="WhiteOnly"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="xzW-dB-yfd" secondAttribute="height" multiplier="1:1" id="ViG-Uo-KxU"/>
@@ -49,25 +47,25 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sfg-Io-5el">
-                                <rect key="frame" x="191" y="322" width="32" height="62.5"/>
+                                <rect key="frame" x="284" y="169" width="32" height="62.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="52"/>
                                 <color key="textColor" name="AccentColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NEED SOME ANSWERS? " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yr2-D4-4XK">
-                                <rect key="frame" x="24" y="526" width="366" height="20.5"/>
+                                <rect key="frame" x="24" y="373" width="552" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="Titles"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZm-gR-PIG">
-                                <rect key="frame" x="24" y="570.5" width="366" height="0.0"/>
+                                <rect key="frame" x="24" y="417.5" width="552" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="AccentColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TCK-7U-3Ix" customClass="CornerRadiusButton" customModule="_BallDelegator" customModuleProvider="target">
-                                <rect key="frame" x="342" y="56" width="48" height="52"/>
+                                <rect key="frame" x="528" y="12" width="48" height="52"/>
                                 <color key="backgroundColor" name="ButtonGrey"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="48" id="4QE-kt-DvQ"/>
@@ -85,7 +83,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Settings" translatesAutoresizingMaskIntoConstraints="NO" id="Pfj-ao-Epo">
-                                <rect key="frame" x="354" y="70" width="24" height="24"/>
+                                <rect key="frame" x="540" y="26" width="24" height="24"/>
                                 <color key="tintColor" name="SecondaryText"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="TZG-GU-lq8"/>
@@ -93,7 +91,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KYr-K6-9Yt">
-                                <rect key="frame" x="24" y="808" width="366" height="30"/>
+                                <rect key="frame" x="24" y="546" width="552" height="30"/>
                                 <color key="tintColor" name="Titles"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="SHAKE!"/>
@@ -137,28 +135,28 @@
             </objects>
             <point key="canvasLocation" x="944.92753623188412" y="83.705357142857139"/>
         </scene>
-        <!--SettingsVC-->
+        <!--Settings View Controller-->
         <scene sceneID="20y-Iv-2Iw">
             <objects>
-                <viewController storyboardIdentifier="Settings" id="hNk-mJ-AQ5" customClass="SettingsVC" customModule="_BallDelegator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Settings" id="hNk-mJ-AQ5" customClass="SettingsViewController" customModule="_BallDelegator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sym-El-jye">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="72" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jEb-N4-bbc">
-                                <rect key="frame" x="0.0" y="120" width="414" height="742"/>
+                                <rect key="frame" x="0.0" y="76" width="600" height="524"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="K4Z-U2-tPG">
-                                    <rect key="frame" x="0.0" y="139" width="414" height="44"/>
+                                    <rect key="frame" x="0.0" y="139" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsTableViewCell" id="eDU-1a-SUD" customClass="SettingsTableViewCell" customModule="_BallDelegator" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="72"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="600" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eDU-1a-SUD" id="Y4I-B2-O5d">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="72"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="72"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sYs-Df-2UA">
@@ -170,13 +168,13 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uAj-DS-vvQ">
-                                                    <rect key="frame" x="64" y="36" width="326" height="0.0"/>
+                                                    <rect key="frame" x="64" y="36" width="512" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="Titles"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gE4-Pn-6Ov">
-                                                    <rect key="frame" x="24" y="71" width="366" height="1"/>
+                                                    <rect key="frame" x="24" y="71" width="552" height="1"/>
                                                     <viewLayoutGuide key="safeArea" id="hcI-sE-zVz"/>
                                                     <color key="backgroundColor" name="GreyF4"/>
                                                     <constraints>
@@ -205,13 +203,13 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sei-3n-JiG">
-                                <rect key="frame" x="96" y="72" width="222" height="20.5"/>
+                                <rect key="frame" x="96" y="28" width="408" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="Titles"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wtm-im-sad" customClass="CornerRadiusButton" customModule="_BallDelegator" customModuleProvider="target">
-                                <rect key="frame" x="24" y="56" width="48" height="52"/>
+                                <rect key="frame" x="24" y="12" width="48" height="52"/>
                                 <color key="backgroundColor" name="ButtonGrey"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="HKH-u0-Bvs"/>
@@ -229,7 +227,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BackArrow" translatesAutoresizingMaskIntoConstraints="NO" id="mbs-pm-9l8">
-                                <rect key="frame" x="36" y="70" width="24" height="24"/>
+                                <rect key="frame" x="36" y="26" width="24" height="24"/>
                                 <color key="tintColor" name="SecondaryText"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="9XD-WH-Mp7"/>
@@ -262,14 +260,6 @@
             <point key="canvasLocation" x="1847.826086956522" y="83.705357142857139"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="TCK-7U-3Ix">
-            <size key="intrinsicContentSize" width="30" height="30"/>
-        </designable>
-        <designable name="wtm-im-sad">
-            <size key="intrinsicContentSize" width="30" height="30"/>
-        </designable>
-    </designables>
     <resources>
         <image name="BackArrow" width="32" height="32"/>
         <image name="Settings" width="24" height="24"/>

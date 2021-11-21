@@ -1,5 +1,5 @@
 //
-//  SettingsVC.swift
+//  SettingsViewController.swift
 //  8BallDelegator
 //
 //  Created by Veronika Andrianova on 18.10.2021.
@@ -7,18 +7,18 @@
 
 import UIKit
 
-class SettingsVC: UIViewController {
+class SettingsViewController: UIViewController {
 
+    let settingsViewModel: SettingsViewModel
     var cells: [SettingsCell] = []
 
-    struct SettingsCell {
-        var cellType: CellType?
-        var img: UIImage?
-        var labelText: String?
-    }
-    enum CellType {
-        case contactSupport
-        case appearance
+    required init?(coder: NSCoder, settingsViewModel: SettingsViewModel) {
+        self.settingsViewModel = settingsViewModel
+        super.init(coder: coder)
+      }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - IBOutlet
@@ -76,7 +76,7 @@ class SettingsVC: UIViewController {
 }
 
 // MARK: - TableView Delegates
-extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
+extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         cells.count
     }

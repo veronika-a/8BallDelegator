@@ -1,5 +1,5 @@
 //
-//  MainVC.swift
+//  MainViewController.swift
 //  8BallDelegator
 //
 //  Created by Veronika Andrianova on 18.10.2021.
@@ -7,14 +7,16 @@
 
 import UIKit
 import Foundation
+import OSLog
 
-class MainVC: UIViewController {
+class MainViewController: UIViewController {
+
     @IBOutlet weak var answerLabel: UILabel!
+    var mainViewModel: MainViewModel?
+    var presentableMagicAnswer: PresentableMagicAnswer?
 
-    var repository: Repository
-
-    required init?(coder: NSCoder, repository: Repository) {
-        self.repository = repository
+    required init?(coder: NSCoder, mainViewModel: MainViewModel) {
+        self.mainViewModel = mainViewModel
         super.init(coder: coder)
       }
 
@@ -51,31 +53,36 @@ class MainVC: UIViewController {
     }
 
     private func toSettings() {
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        guard let settingsVC = storyboard.instantiateViewController(withIdentifier: "Settings")
-                as? SettingsVC else { return }
+        let settingsModel = SettingsModel()
+        let settingsViewModel = SettingsViewModel(settingsModel: settingsModel)
+
+        guard let settingsVC = storyboard?.instantiateViewController(identifier: "Settings", creator: { coder in
+            return SettingsViewController(coder: coder, settingsViewModel: settingsViewModel)
+        }) else {return}
         navigationController?.pushViewController(settingsVC, animated: true)
     }
 
     private func getAnswer() {
-        repository.getAnswer(question: L10n.questionText) { [weak self] result in
+        mainViewModel?.getAnswer(currentAnswer: presentableMagicAnswer?.answer, completion: { [weak self] result in
             switch result {
             case .success(let success):
-                guard let success = success, let value = success.magic else {return}
-                print(success)
+                guard let presentableMagicAnswer = success else {return}
+                print(presentableMagicAnswer)
                 DispatchQueue.main.async {
-                    self?.answerLabel.text = value.answer ?? ""
+                    self?.answerLabel.text = presentableMagicAnswer.answer ?? ""
+                    self?.answerLabel.textColor = presentableMagicAnswer.color?.color
+                    self?.presentableMagicAnswer = presentableMagicAnswer
                 }
             case .failure(let error):
                 switch error {
-                case .networkError(let error):
-                    self?.errorMessage(error: error)
+                case .networkError(let networkError):
+                    self?.errorMessage(error: networkError)
+                    print(networkError)
                 default:
-                    self?.errorMessage(error: "\(error.localizedDescription)")
                     print(error)
                 }
             }
-        }
+        })
     }
 
     // Enable detection of shake motion

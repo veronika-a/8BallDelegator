@@ -18,10 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window = UIWindow(windowScene: windowScene)
         let storyboardMain = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let repository = Repository.init(networkDataProvider: NetworkService())
+        let repository = Repository.init(networkDataProvider: NetworkService(), dbDataProvider: DBClient.init())
+        let mainViewModel = MainViewModel(model: MainModel(repository: repository))
 
         let mainVC = storyboardMain.instantiateViewController(identifier: "Main", creator: { coder in
-            return MainVC(coder: coder, repository: repository)
+            return MainViewController(coder: coder, mainViewModel: mainViewModel)
         })
 
         let navigationController = UINavigationController.init(rootViewController: mainVC)
