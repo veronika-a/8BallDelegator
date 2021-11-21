@@ -108,7 +108,7 @@ private extension SettingsViewController {
             $0.top.equalTo(navigationView.snp.bottom)
             $0.right.equalTo(view.safeAreaLayoutGuide).inset(24)
             $0.left.equalTo(view.safeAreaLayoutGuide).inset(12)
-            $0.left.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 

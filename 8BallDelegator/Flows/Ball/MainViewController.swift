@@ -160,7 +160,6 @@ private extension MainViewController {
             make.width.height.equalTo(ballHight)
             make.centerY.equalTo(view.safeAreaLayoutGuide).offset(-100)
             make.centerX.equalTo(view.safeAreaLayoutGuide)
-            make.center.greaterThanOrEqualTo(view.safeAreaLayoutGuide).inset(24)
         }
 
         let smallBall = CornerRadiusView()

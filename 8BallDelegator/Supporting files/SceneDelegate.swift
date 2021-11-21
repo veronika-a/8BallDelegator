@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
         window = UIWindow(windowScene: windowScene)
-        let repository = Repository.init(networkDataProvider: NetworkService())
+        let repository = Repository.init(networkDataProvider: NetworkService(), dbDataProvider: DBClient())
         let mainViewModel = MainViewModel(model: MainModel(repository: repository))
         guard let mainVC = MainViewController(mainViewModel: mainViewModel) else {return}
         let navigationController = UINavigationController.init(rootViewController: mainVC)
