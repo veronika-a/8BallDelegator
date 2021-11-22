@@ -64,6 +64,7 @@
 		949B870D2747DFFB00509C19 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		949B8711274AA37900509C19 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		949B8715274ADFF800509C19 /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
+		949B8717274B7EB300509C19 /* GCD.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = GCD.playground; sourceTree = "<group>"; };
 		94B5FB722739761F00CBBB54 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		94F2D6F5273D5CF1002A5D9D /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		94F2D6F8273D623A002A5D9D /* XCAssets+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCAssets+Generated.swift"; sourceTree = "<group>"; };
@@ -110,6 +111,7 @@
 		94392F08271D749B0073F85D = {
 			isa = PBXGroup;
 			children = (
+				949B8717274B7EB300509C19 /* GCD.playground */,
 				949B870D2747DFFB00509C19 /* .swiftlint.yml */,
 				94F2D6F5273D5CF1002A5D9D /* swiftgen.yml */,
 				94392F13271D749C0073F85D /* 8BallDelegator */,
