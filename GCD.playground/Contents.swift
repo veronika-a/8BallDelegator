@@ -11,7 +11,7 @@ DispatchQueue.main.async {
 
 // MARK: - cancellation of DispatchWorkItem
 let dispatchQueue = DispatchQueue.global(qos: .background)
-let dispatchWorkItem = DispatchWorkItem(){
+let dispatchWorkItem = DispatchWorkItem {
     while true {
         print(0)
     }

@@ -106,6 +106,7 @@ class MainViewController: UIViewController {
 
 private extension MainViewController {
     func createView() {
+        addCounterLabel()
         view.backgroundColor = Asset.Colors.mainBackground.color
         let navigationView = NavigationView()
         navigationView.createNavigationButton(isRight: true, image: Asset.Assets.settings.image, action: settings)
@@ -148,7 +149,9 @@ private extension MainViewController {
             make.bottom.left.right.equalTo(view.safeAreaLayoutGuide).inset(24)
             make.top.greaterThanOrEqualTo(answerLabel.snp.bottom).offset(24)
         }
+    }
 
+    func addCounterLabel() {
         counterLabel = UILabel()
         counterLabel.text = "0"
         counterLabel.textColor = Asset.Colors.titles.color
