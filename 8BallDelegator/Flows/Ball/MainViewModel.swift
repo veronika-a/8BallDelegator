@@ -8,10 +8,20 @@
 class MainViewModel {
     private let model: MainModel
     private var magicAnswer: MagicAnswer?
-    private var counter: Int = 0
+    private var currentAnswerCounter: Int = 0
+    private var secureCounter: Int = 0
+    private let secureStorage = SecureStorage()
 
     init(model: MainModel) {
         self.model = model
+    }
+
+    func updateCounter() -> String? {
+        secureCounter += 1
+        secureStorage.setValue("\(secureCounter)", forKey: "secureCounter")
+        let value = secureStorage.getValue(forKey: "secureCounter") ?? ""
+        print("secureCounter =\(value)")
+        return value
     }
 
     func getAnswer(currentAnswer: String?, completion: @escaping (Result<PresentableMagicAnswer?, CallError>) -> Void) {
@@ -20,7 +30,7 @@ class MainViewModel {
             case .success(let success):
                 guard var magicAnswer = success else {return}
                 magicAnswer.answer = magicAnswer.answer?.uppercased()
-                if magicAnswer.answer == currentAnswer && self.counter < 5 {
+                if magicAnswer.answer == currentAnswer && self.currentAnswerCounter < 5 {
                     self.getAnswer(currentAnswer: currentAnswer, completion: completion)
                 } else {
                     self.magicAnswer = magicAnswer

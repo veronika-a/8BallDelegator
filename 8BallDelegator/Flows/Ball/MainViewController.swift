@@ -15,6 +15,7 @@ class MainViewController: UIViewController {
     private var answerLabel = UILabel()
     private let mainViewModel: MainViewModel
     private var presentableMagicAnswer: PresentableMagicAnswer?
+    private var counterLabel = UILabel()
 
     required init?(mainViewModel: MainViewModel) {
         self.mainViewModel = mainViewModel
@@ -62,6 +63,7 @@ class MainViewController: UIViewController {
     }
 
     private func getAnswer() {
+        counterLabel.text = mainViewModel.updateCounter()
         mainViewModel.getAnswer(currentAnswer: presentableMagicAnswer?.answer, completion: { [weak self] result in
             switch result {
             case .success(let success):
@@ -145,6 +147,16 @@ private extension MainViewController {
         shakeButton.snp.makeConstraints { (make) -> Void in
             make.bottom.left.right.equalTo(view.safeAreaLayoutGuide).inset(24)
             make.top.greaterThanOrEqualTo(answerLabel.snp.bottom).offset(24)
+        }
+
+        counterLabel = UILabel()
+        counterLabel.text = "0"
+        counterLabel.textColor = Asset.Colors.titles.color
+        counterLabel.textAlignment = .center
+        counterLabel.font = counterLabel.font.withSize(24)
+        view.addSubview(counterLabel)
+        counterLabel.snp.makeConstraints { (make) -> Void in
+            make.left.top.equalTo(view.safeAreaLayoutGuide).inset(40)
         }
     }
 
