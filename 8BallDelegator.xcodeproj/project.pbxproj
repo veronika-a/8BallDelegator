@@ -20,6 +20,7 @@
 		944F6D5E274029810035CC45 /* Ball+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944F6D5C274029810035CC45 /* Ball+CoreDataClass.swift */; };
 		944F6D5F274029810035CC45 /* Ball+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944F6D5D274029810035CC45 /* Ball+CoreDataProperties.swift */; };
 		948F8B41274B953D0023DCF6 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948F8B40274B953D0023DCF6 /* SecureStorage.swift */; };
+		948F8B43274D00C30023DCF6 /* StorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948F8B42274D00C30023DCF6 /* StorageKey.swift */; };
 		949B87002747BE6A00509C19 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B86FF2747BE6A00509C19 /* SettingsViewModel.swift */; };
 		949B87022747BE7800509C19 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B87012747BE7800509C19 /* SettingsModel.swift */; };
 		949B87052747BFAC00509C19 /* ManagedAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B87042747BFAC00509C19 /* ManagedAnswer.swift */; };
@@ -57,6 +58,7 @@
 		944F6D5C274029810035CC45 /* Ball+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ball+CoreDataClass.swift"; sourceTree = "<group>"; };
 		944F6D5D274029810035CC45 /* Ball+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ball+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		948F8B40274B953D0023DCF6 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
+		948F8B42274D00C30023DCF6 /* StorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageKey.swift; sourceTree = "<group>"; };
 		949B86FF2747BE6A00509C19 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		949B87012747BE7800509C19 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		949B87042747BFAC00509C19 /* ManagedAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedAnswer.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				94B5FB722739761F00CBBB54 /* Repository.swift */,
 				94F2D71A273FCD7D002A5D9D /* DBClient.swift */,
 				948F8B40274B953D0023DCF6 /* SecureStorage.swift */,
+				948F8B42274D00C30023DCF6 /* StorageKey.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				94392F17271D749C0073F85D /* SceneDelegate.swift in Sources */,
 				94F2D711273EA155002A5D9D /* MainModel.swift in Sources */,
 				944F6D5B27401C690035CC45 /* AppDelegate.swift in Sources */,
+				948F8B43274D00C30023DCF6 /* StorageKey.swift in Sources */,
 				944F6D5E274029810035CC45 /* Ball+CoreDataClass.swift in Sources */,
 				94392F34271D944B0073F85D /* CornerRadiusView.swift in Sources */,
 				94392F38271DAC2B0073F85D /* NetworkService.swift in Sources */,

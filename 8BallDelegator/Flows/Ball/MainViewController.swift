@@ -63,7 +63,7 @@ class MainViewController: UIViewController {
     }
 
     private func getAnswer() {
-        counterLabel.text = mainViewModel.updateCounter()
+        counterLabel.text = mainViewModel.updateAndReturnCounter()
         mainViewModel.getAnswer(currentAnswer: presentableMagicAnswer?.answer, completion: { [weak self] result in
             switch result {
             case .success(let success):

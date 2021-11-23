@@ -9,31 +9,25 @@ class MainViewModel {
     private let model: MainModel
     private var magicAnswer: MagicAnswer?
     private var currentAnswerCounter: Int = 0
-    private var secureCounter: Int = 0
-    private let secureStorage = SecureStorage()
 
     init(model: MainModel) {
         self.model = model
     }
 
-    func updateCounter() -> String? {
-        secureCounter += 1
-        secureStorage.setValue("\(secureCounter)", forKey: "secureCounter")
-        let value = secureStorage.getValue(forKey: "secureCounter") ?? ""
-        print("secureCounter =\(value)")
-        return value
+    func updateAndReturnCounter() -> String? {
+        return model.updateAndReturnCounter()
     }
 
     func getAnswer(currentAnswer: String?, completion: @escaping (Result<PresentableMagicAnswer?, CallError>) -> Void) {
-        model.getAnswer { result in
+        model.getAnswer { [weak self] result in
             switch result {
             case .success(let success):
                 guard var magicAnswer = success else {return}
                 magicAnswer.answer = magicAnswer.answer?.uppercased()
-                if magicAnswer.answer == currentAnswer && self.currentAnswerCounter < 5 {
-                    self.getAnswer(currentAnswer: currentAnswer, completion: completion)
+                if magicAnswer.answer == currentAnswer && self?.currentAnswerCounter ?? 0 < 5 {
+                    self?.getAnswer(currentAnswer: currentAnswer, completion: completion)
                 } else {
-                    self.magicAnswer = magicAnswer
+                    self?.magicAnswer = magicAnswer
                     completion(.success(magicAnswer.toPresentableMagicAnswer()))
                 }
             case .failure(let error):
