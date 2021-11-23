@@ -15,16 +15,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
-
         window = UIWindow(windowScene: windowScene)
-        let storyboardMain = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let repository = Repository.init(networkDataProvider: NetworkService(), dbDataProvider: DBClient.init())
+        let repository = Repository.init(networkDataProvider: NetworkService(), dbDataProvider: DBClient())
         let mainViewModel = MainViewModel(model: MainModel(repository: repository))
-
-        let mainVC = storyboardMain.instantiateViewController(identifier: "Main", creator: { coder in
-            return MainViewController(coder: coder, mainViewModel: mainViewModel)
-        })
-
+        guard let mainVC = MainViewController(mainViewModel: mainViewModel) else {return}
         let navigationController = UINavigationController.init(rootViewController: mainVC)
         navigationController.navigationBar.isHidden = true
         window?.rootViewController = navigationController
