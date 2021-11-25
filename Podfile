@@ -6,5 +6,6 @@ target '8BallDelegator' do
     pod 'SwiftLint', '~> 0.45.0'
     pod 'SwiftGen', '~> 6.1'
     pod 'SnapKit', '~> 5.0.0'
+    pod 'SwiftKeychainWrapper', '~> 3.0.0'
     
 end

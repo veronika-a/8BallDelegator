@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
         window = UIWindow(windowScene: windowScene)
         let repository = Repository.init(networkDataProvider: NetworkService(), dbDataProvider: DBClient())
-        let mainViewModel = MainViewModel(model: MainModel(repository: repository))
+        let mainViewModel = MainViewModel(model: MainModel(repository: repository, secureStorage: SecureStorage()))
         guard let mainVC = MainViewController(mainViewModel: mainViewModel) else {return}
         let navigationController = UINavigationController.init(rootViewController: mainVC)
         navigationController.navigationBar.isHidden = true

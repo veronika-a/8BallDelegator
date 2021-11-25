@@ -12,9 +12,20 @@ class MainModel {
     private var repository: Repository
     private var managedAnswer: ManagedAnswer?
     weak var delegate: ReloadDataDelegate?
+    private let secureStorage: SecureStorage
+    private var secureCounter: Int = 0
 
-    init(repository: Repository) {
+    init(repository: Repository, secureStorage: SecureStorage) {
         self.repository = repository
+        self.secureStorage = secureStorage
+    }
+
+    func updateAndReturnCounter() -> String? {
+        secureCounter += 1
+        secureStorage.setValue("\(secureCounter)", forKey: StorageKey.secureCounter.rawValue)
+        let value = secureStorage.getValue(forKey: StorageKey.secureCounter.rawValue) ?? ""
+        print("secureCounter =\(value)")
+        return value
     }
 
     func getAnswer(completion: @escaping (Result<MagicAnswer?, CallError>) -> Void) {
