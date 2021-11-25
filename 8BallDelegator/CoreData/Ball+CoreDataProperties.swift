@@ -2,7 +2,7 @@
 //  Ball+CoreDataProperties.swift
 //  8BallDelegator
 //
-//  Created by Veronika Andrianova on 13.11.2021.
+//  Created by Veronika Andrianova on 24.11.2021.
 //
 //
 
@@ -16,9 +16,9 @@ extension Ball {
     }
 
     @NSManaged public var answer: String?
-    @NSManaged public var id: UUID?
-    @NSManaged public var type: String?
+    @NSManaged public var date: Date?
     @NSManaged public var question: String?
+    @NSManaged public var type: String?
 
 }
 

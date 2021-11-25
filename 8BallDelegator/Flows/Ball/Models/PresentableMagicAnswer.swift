@@ -10,5 +10,4 @@ import Foundation
 struct PresentableMagicAnswer {
     var answer: String?
     var color: ColorAsset?
-    var selectionHandler: (() -> Void)?
 }

@@ -146,8 +146,8 @@ private extension MainViewController {
         shakeButton.setTitleColor(Asset.Colors.titles.color, for: .normal)
         view.addSubview(shakeButton)
         shakeButton.snp.makeConstraints { (make) -> Void in
-            make.bottom.left.right.equalTo(view.safeAreaLayoutGuide).inset(24)
-            make.top.greaterThanOrEqualTo(answerLabel.snp.bottom).offset(24)
+            make.left.right.equalTo(view.safeAreaLayoutGuide).inset(24)
+            make.top.equalTo(answerLabel).inset(48)
         }
     }
 

@@ -9,7 +9,7 @@ import CoreData
 import UIKit
 
 class MainModel {
-    private var repository: Repository
+    private let repository: Repository
     private var managedAnswer: ManagedAnswer?
     weak var delegate: ReloadDataDelegate?
     private let secureStorage: SecureStorage
@@ -24,7 +24,7 @@ class MainModel {
         secureCounter += 1
         secureStorage.setValue("\(secureCounter)", forKey: StorageKey.secureCounter.rawValue)
         let value = secureStorage.getValue(forKey: StorageKey.secureCounter.rawValue) ?? ""
-        print("secureCounter =\(value)")
+        print("secureCounter = \(value)")
         return value
     }
 

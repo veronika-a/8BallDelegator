@@ -2,7 +2,7 @@
 //  Ball+CoreDataClass.swift
 //  8BallDelegator
 //
-//  Created by Veronika Andrianova on 13.11.2021.
+//  Created by Veronika Andrianova on 24.11.2021.
 //
 //
 
