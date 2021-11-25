@@ -14,6 +14,8 @@ struct HistoryAnswer {
 
 extension HistoryAnswer {
     func toPresentableHistoryAnswer() -> PresentableHistoryAnswer {
-        return PresentableHistoryAnswer(answer: answer, date: date)
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = StorageKey.dateFormat.rawValue
+        return PresentableHistoryAnswer(answer: answer, date: dateFormatterGet.string(from: date ?? Date()))
     }
 }

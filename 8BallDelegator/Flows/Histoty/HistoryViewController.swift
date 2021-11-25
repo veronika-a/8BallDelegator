@@ -38,9 +38,7 @@ class HistoryViewController: UIViewController {
             withIdentifier: "HistoryTableViewCell", for: indexPath)
                 as? HistoryTableViewCell else { return UITableViewCell() }
         let obj = presentableHistoryAnswers?[indexPath.row]
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        cell.typeLabel.text = "\(obj?.answer ?? "") \(dateFormatterGet.string(from: obj?.date ?? Date()))"
+        cell.typeLabel.text = "\(obj?.answer ?? "") \(obj?.date ?? "")"
         return cell
     }
 
@@ -84,9 +82,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
             withIdentifier: "HistoryTableViewCell", for: indexPath)
                 as? HistoryTableViewCell else { return UITableViewCell() }
         let obj = presentableHistoryAnswers?[indexPath.row]
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        cell.typeLabel.text = "\(obj?.answer ?? "") \(dateFormatterGet.string(from: obj?.date ?? Date()))"
+        cell.typeLabel.text = "\(obj?.answer ?? "") \(obj?.date ?? "")"
         return cell
     }
 

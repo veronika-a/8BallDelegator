@@ -9,5 +9,5 @@ import Foundation
 
 struct PresentableHistoryAnswer {
     var answer: String?
-    var date: Date?
+    var date: String?
 }
