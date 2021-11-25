@@ -11,8 +11,8 @@ import SwiftKeychainWrapper
 class SecureStorage {
     let keychainWrapper: KeychainWrapper
 
-    init() {
-        keychainWrapper = KeychainWrapper.standard
+    init(keychainWrapper: KeychainWrapper = KeychainWrapper.standard) {
+        self.keychainWrapper = keychainWrapper
     }
 
     func setValue(_ value: String, forKey: String) {
