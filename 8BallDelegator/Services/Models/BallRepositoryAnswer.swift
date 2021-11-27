@@ -12,11 +12,17 @@ struct BallRepositoryAnswer {
     var question: String?
     var type: String?
     var date: Date?
+    var isUserCreated: Bool
 }
 
 extension Ball {
     func toBallRepositoryAnswer() -> BallRepositoryAnswer {
-        return BallRepositoryAnswer(answer: answer, question: question, type: type, date: date)
+        return BallRepositoryAnswer(
+            answer: answer,
+            question: question,
+            type: type,
+            date: date,
+            isUserCreated: isUserCreated)
     }
 }
 
@@ -34,12 +40,12 @@ extension BallRepositoryAnswer {
 
 extension BallRepositoryAnswer {
     func toManagedHistoryAnswer() -> ManagedHistoryAnswer {
-        return ManagedHistoryAnswer(answer: answer, date: date)
+        return ManagedHistoryAnswer(answer: answer, date: date, isUserCreated: isUserCreated)
     }
 }
 
 extension BallRepositoryAnswer {
     func toHistoryAnswer() -> HistoryAnswer {
-        return HistoryAnswer(answer: answer, date: date)
+        return HistoryAnswer(answer: answer, date: date, isUserCreated: isUserCreated)
     }
 }

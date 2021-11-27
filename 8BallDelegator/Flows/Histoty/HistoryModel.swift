@@ -51,4 +51,12 @@ class HistoryModel {
     func deleteAnswer(indexPath: IndexPath) {
         repository.deleteAnswer(indexPath: indexPath)
     }
+
+    func updateAnswer(indexPath: IndexPath, answer: String) {
+        repository.updateAnswer(indexPath: indexPath, answer: answer)
+    }
+
+    func saveAnswer(answer: ManagedHistoryAnswer) {
+        repository.saveAnswer(answer: answer.toBallRepositoryAnswer())
+    }
 }

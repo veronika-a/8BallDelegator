@@ -113,6 +113,11 @@ struct Magic: Codable {
 
 extension MagicResponse {
     func toBallRepositoryAnswer() -> BallRepositoryAnswer {
-        return BallRepositoryAnswer(answer: magic?.answer, question: magic?.question, type: magic?.type, date: Date())
+        return BallRepositoryAnswer(
+            answer: magic?.answer,
+            question: magic?.question,
+            type: magic?.type,
+            date: Date(),
+            isUserCreated: false)
     }
 }

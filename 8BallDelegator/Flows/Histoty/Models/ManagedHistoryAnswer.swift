@@ -10,10 +10,11 @@ import Foundation
 struct ManagedHistoryAnswer {
     var answer: String?
     var date: Date?
+    var isUserCreated: Bool
 }
 
 extension ManagedHistoryAnswer {
-    func toPresentableHistoryAnswer() -> PresentableHistoryAnswer {
-        return PresentableHistoryAnswer()
+    func toBallRepositoryAnswer() -> BallRepositoryAnswer {
+        return BallRepositoryAnswer(answer: answer, date: date, isUserCreated: isUserCreated)
     }
 }

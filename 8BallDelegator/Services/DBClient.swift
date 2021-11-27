@@ -16,13 +16,13 @@ protocol DBProtocol {
     func getAnswers(completion: @escaping (Result<[Ball]?, CallError>) -> Void)
     func fetchAnswerResultsController(controller: NSFetchedResultsControllerDelegate)
     func deleteAnswer(indexPath: IndexPath)
+    func updateAnswer(indexPath: IndexPath, answer: String)
 }
 
 class DBClient: DBProtocol {
     private var fetchedResultsController: NSFetchedResultsController<Ball>?
     private let managedContext: NSManagedObjectContext
 
-    // MARK: - Core Data stack
     private var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Balls")
         container.loadPersistentStores(completionHandler: { (_, error) in
@@ -30,21 +30,38 @@ class DBClient: DBProtocol {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+
+        let description = NSPersistentStoreDescription()
+        description.shouldMigrateStoreAutomatically = true
+        description.shouldInferMappingModelAutomatically = true
+        container.persistentStoreDescriptions = [description]
+        container.loadPersistentStores { storeDescription, error in
+            print("error: \(error?.localizedDescription ?? "") storeDescription: \(storeDescription)")
+        }
         return container
     }()
 
     init() {
         managedContext = persistentContainer.viewContext
+        managedContext.automaticallyMergesChangesFromParent = true
     }
 
     func saveAnswer(answer: BallRepositoryAnswer) {
-        let newAnswer = Ball(context: managedContext)
-        newAnswer.answer = answer.answer
-        newAnswer.type = answer.type
-        newAnswer.question = answer.question
-        newAnswer.date = answer.date
-        saveContext()
-        print("save answer = \(answer.answer ?? "")")
+        let backgroundMOC = persistentContainer.newBackgroundContext()
+        backgroundMOC.performAndWait {
+            let newAnswer = Ball(context: backgroundMOC)
+            newAnswer.answer = answer.answer
+            newAnswer.type = answer.type
+            newAnswer.question = answer.question
+            newAnswer.isUserCreated = answer.isUserCreated
+            if newAnswer.isUserCreated {
+                newAnswer.date = Date()
+            } else {
+                newAnswer.date = answer.date
+            }
+            try? backgroundMOC.save()
+        }
+        print("saveAnswerBackground = \(answer.answer ?? "")")
     }
 
     func deleteAnswer(indexPath: IndexPath) {
@@ -52,6 +69,16 @@ class DBClient: DBProtocol {
         guard let objectToDelete = fetchedResultsController?.object(at: indexPath) else {return}
         context?.delete(objectToDelete)
         saveContext()
+    }
+
+    func updateAnswer(indexPath: IndexPath, answer: String) {
+        let backgroundMOC = persistentContainer.newBackgroundContext()
+        backgroundMOC.performAndWait {
+            guard let object = fetchedResultsController?.object(at: indexPath) else {return}
+            guard let ball = backgroundMOC.object(with: object.objectID) as? Ball else {return}
+            ball.answer = answer
+            try? backgroundMOC.save()
+        }
     }
 
     private func saveContext() {
@@ -92,6 +119,7 @@ class DBClient: DBProtocol {
         }
     }
 
+    // MARK: - NSFetchedResultsControllerDelegate
     func fetchAnswerResultsController(controller: NSFetchedResultsControllerDelegate) {
         let fetchRequest: NSFetchRequest<Ball> = NSFetchRequest<Ball>(entityName: "Ball")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
