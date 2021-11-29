@@ -78,4 +78,12 @@ class Repository {
     func deleteAnswer(indexPath: IndexPath) {
         dbDataProvider.deleteAnswer(indexPath: indexPath)
     }
+
+    func updateAnswer(indexPath: IndexPath, answer: String) {
+        dbDataProvider.updateAnswer(indexPath: indexPath, answer: answer)
+    }
+
+    func saveAnswer(answer: BallRepositoryAnswer) {
+        dbDataProvider.saveAnswer(answer: answer)
+    }
 }

@@ -10,4 +10,11 @@ import Foundation
 struct PresentableHistoryAnswer {
     var answer: String?
     var date: String?
+    var isUserCreated: Bool?
+}
+
+extension HistoryAnswer {
+    func toHistoryAnswer() -> HistoryAnswer {
+        return HistoryAnswer(answer: answer, date: date, isUserCreated: isUserCreated)
+    }
 }

@@ -48,4 +48,12 @@ class HistoryViewModel {
     func deleteAnswer(indexPath: IndexPath) {
         model.deleteAnswer(indexPath: indexPath)
     }
+
+    func updateAnswer(indexPath: IndexPath, answer: String) {
+        model.updateAnswer(indexPath: indexPath, answer: answer)
+    }
+
+    func saveAnswer(answer: HistoryAnswer) {
+        model.saveAnswer(answer: answer.toManagedHistoryAnswer())
+    }
 }
