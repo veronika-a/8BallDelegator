@@ -19,7 +19,7 @@ class BallTabBarController: UITabBarController {
 
     }
 
-    required init?(tabItems: [TabItem]) {
+    required init(tabItems: [TabItem]) {
         super.init(nibName: nil, bundle: nil)
         var controllers = [UIViewController]()
         for tabItem in tabItems {
@@ -28,7 +28,7 @@ class BallTabBarController: UITabBarController {
         self.viewControllers = controllers
     }
 
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

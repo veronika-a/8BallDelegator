@@ -17,12 +17,12 @@ class MainViewController: UIViewController {
     private var presentableMagicAnswer: PresentableMagicAnswer?
     private var counterLabel = UILabel()
 
-    required init?(mainViewModel: MainViewModel) {
+    required init(mainViewModel: MainViewModel) {
         self.mainViewModel = mainViewModel
         super.init(nibName: nil, bundle: nil)
       }
 
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -58,7 +58,7 @@ class MainViewController: UIViewController {
     private func toSettings() {
         let settingsModel = SettingsModel()
         let settingsViewModel = SettingsViewModel(settingsModel: settingsModel)
-        guard let settingsVC = SettingsViewController(settingsViewModel: settingsViewModel) else {return}
+        let settingsVC = SettingsViewController(settingsViewModel: settingsViewModel)
         navigationController?.pushViewController(settingsVC, animated: true)
     }
 

@@ -8,6 +8,7 @@
 import Foundation
 
 class HistoryModel {
+
     private let repository: Repository
     private var managedAnswers: [ManagedHistoryAnswer]?
 
@@ -16,8 +17,8 @@ class HistoryModel {
     }
 
     func loadAnswerHistory(completion: @escaping (Result<[HistoryAnswer]?, CallError>) -> Void) {
-        repository.loadAnswerHistory { [weak self] reult in
-            switch reult {
+        repository.loadAnswerHistory { [weak self] result in
+            switch result {
             case .success(let success):
                 guard let success = success else {return}
                 self?.managedAnswers = [ManagedHistoryAnswer]()

@@ -6,20 +6,22 @@
 //
 
 import UIKit
-import CoreData
 
 class HistoryViewController: UIViewController {
 
     private let viewModel: HistoryViewModel
     private var tableView = UITableView()
     private var presentableHistoryAnswers: [PresentableHistoryAnswer]?
+    private let fetchedResultsController: FetchedResultsController<Ball>
 
-    required init?(viewModel: HistoryViewModel) {
+    required init(viewModel: HistoryViewModel, fetchedResultsController: FetchedResultsController<Ball>) {
         self.viewModel = viewModel
+        self.fetchedResultsController = fetchedResultsController
         super.init(nibName: nil, bundle: nil)
+        fetchedResultsController.delegate = self
     }
 
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -27,9 +29,6 @@ class HistoryViewController: UIViewController {
         super.viewDidLoad()
         createView()
         loadHistory()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
     }
 
     func configureCell(indexPath: IndexPath) {
@@ -187,42 +186,17 @@ private extension HistoryViewController {
     }
 }
 
-extension HistoryViewController: NSFetchedResultsControllerDelegate {
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.endUpdates()
+// MARK: - FetchedResultsControllerDelegate
+extension HistoryViewController: FetchedResultsControllerDelegate {
+    func delete(indexPath: IndexPath) {
+        presentableHistoryAnswers?.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .fade)
     }
 
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
+    func insert(indexPath: IndexPath) {
+        insertNewAnswer(index: indexPath)
     }
-
-    func controller(
-        _ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any,
-        at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-
-        switch type {
-        case .insert:
-            if let indexPath = newIndexPath {
-                insertNewAnswer(index: indexPath)
-            }
-        case .update:
-            if let indexPath = indexPath {
-                configureCell(indexPath: indexPath)
-            }
-        case .move:
-            if let indexPath = indexPath {
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            if let newIndexPath = newIndexPath {
-                tableView.insertRows(at: [newIndexPath], with: .fade)
-            }
-        case .delete:
-            if let indexPath = indexPath {
-                presentableHistoryAnswers?.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-        @unknown default:
-            fatalError()
-        }
+    func update(indexPath: IndexPath) {
+        configureCell(indexPath: indexPath)
     }
 }
