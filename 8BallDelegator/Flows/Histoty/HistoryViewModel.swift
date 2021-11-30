@@ -16,8 +16,8 @@ class HistoryViewModel {
     }
 
     func loadAnswerHistory(completion: @escaping (Result<[PresentableHistoryAnswer]?, CallError>) -> Void) {
-        model.loadAnswerHistory { [weak self] reult in
-            switch reult {
+        model.loadAnswerHistory { [weak self] result in
+            switch result {
             case .success(let success):
                 guard let success = success else {return}
                 var answers = [PresentableHistoryAnswer]()

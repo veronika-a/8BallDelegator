@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		942CD542275513E600CF4239 /* FetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942CD541275513E600CF4239 /* FetchedResultsController.swift */; };
 		94392F17271D749C0073F85D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F16271D749C0073F85D /* SceneDelegate.swift */; };
 		94392F19271D749C0073F85D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F18271D749C0073F85D /* MainViewController.swift */; };
 		94392F1E271D749F0073F85D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94392F1D271D749F0073F85D /* Assets.xcassets */; };
@@ -53,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		1F91DDE90B1B7B036232B2E2 /* Pods-8BallDelegator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-8BallDelegator.release.xcconfig"; path = "Target Support Files/Pods-8BallDelegator/Pods-8BallDelegator.release.xcconfig"; sourceTree = "<group>"; };
+		942CD541275513E600CF4239 /* FetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedResultsController.swift; sourceTree = "<group>"; };
 		94392F11271D749C0073F85D /* 8BallDelegator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 8BallDelegator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94392F16271D749C0073F85D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		94392F18271D749C0073F85D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				948F8B40274B953D0023DCF6 /* SecureStorage.swift */,
 				948F8B42274D00C30023DCF6 /* StorageKey.swift */,
 				94EE6FA7274E28230020A146 /* DBClient.swift */,
+				942CD541275513E600CF4239 /* FetchedResultsController.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 				94EE6FA8274E28230020A146 /* DBClient.swift in Sources */,
 				94392F38271DAC2B0073F85D /* NetworkService.swift in Sources */,
 				948F8B41274B953D0023DCF6 /* SecureStorage.swift in Sources */,
+				942CD542275513E600CF4239 /* FetchedResultsController.swift in Sources */,
 				94F2D70D273EA12A002A5D9D /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
