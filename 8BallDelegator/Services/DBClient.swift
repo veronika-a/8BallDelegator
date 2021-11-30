@@ -14,7 +14,6 @@ protocol DBProtocol {
     func getAnswer(completion: @escaping (Result<Ball?, CallError>) -> Void)
     func getAnswer(index: IndexPath, completion: @escaping (Result<Ball?, CallError>) -> Void)
     func getAnswers(completion: @escaping (Result<[Ball]?, CallError>) -> Void)
-    func fetchAnswerResultsController(controller: NSFetchedResultsControllerDelegate)
     func deleteAnswer(indexPath: IndexPath)
     func updateAnswer(indexPath: IndexPath, answer: String)
 }
@@ -41,9 +40,23 @@ class DBClient: DBProtocol {
         return container
     }()
 
-    init() {
+    init(controller: NSFetchedResultsControllerDelegate) {
         managedContext = persistentContainer.viewContext
         managedContext.automaticallyMergesChangesFromParent = true
+
+        let fetchRequest: NSFetchRequest<Ball> = NSFetchRequest<Ball>(entityName: "Ball")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: managedContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        fetchedResultsController?.delegate = controller
+        do {
+            try fetchedResultsController?.performFetch()
+            guard let answers = fetchedResultsController?.fetchedObjects else {return}
+            print("fetchAnswerResultsController() count = \(answers.count)")
+        } catch {}
     }
 
     func saveAnswer(answer: BallRepositoryAnswer) {
@@ -117,23 +130,6 @@ class DBClient: DBProtocol {
             completion(.failure(CallError.unknownWithoutError))
             print("getAnswers error")
         }
-    }
-
-    // MARK: - NSFetchedResultsControllerDelegate
-    func fetchAnswerResultsController(controller: NSFetchedResultsControllerDelegate) {
-        let fetchRequest: NSFetchRequest<Ball> = NSFetchRequest<Ball>(entityName: "Ball")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        fetchedResultsController = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: managedContext,
-            sectionNameKeyPath: nil,
-            cacheName: nil)
-        fetchedResultsController?.delegate = controller
-        do {
-            try fetchedResultsController?.performFetch()
-            guard let answers = fetchedResultsController?.fetchedObjects else {return}
-            print("fetchAnswerResultsController() count = \(answers.count)")
-        } catch {}
     }
 }
 

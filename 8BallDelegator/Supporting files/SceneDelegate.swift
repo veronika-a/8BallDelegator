@@ -16,7 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
         window = UIWindow(windowScene: windowScene)
-        let dataProvider = DBClient()
+        let fetchedResultsController = FetchedResultsController<Ball>()
+        let dataProvider = DBClient(controller: fetchedResultsController)
         let repository = Repository.init(networkDataProvider: NetworkService(), dbDataProvider: dataProvider)
         let mainViewModel = MainViewModel(model: MainModel(repository: repository, secureStorage: SecureStorage()))
         let mainVC = MainViewController(mainViewModel: mainViewModel)
@@ -25,9 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             image: Asset.Assets.ball.image,
             title: "Ball")
         let viewModel = HistoryViewModel(model: HistoryModel(repository: repository))
-        let fetchedResultsController = FetchedResultsController<Ball>()
         let historyVC = HistoryViewController(viewModel: viewModel, fetchedResultsController: fetchedResultsController)
-        dataProvider.fetchAnswerResultsController(controller: fetchedResultsController)
         let historyTabItem = BallTabBarController.TabItem(
             viewController: historyVC,
             image: Asset.Assets.history.image,
