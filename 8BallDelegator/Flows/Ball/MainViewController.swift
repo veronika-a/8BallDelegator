@@ -17,12 +17,12 @@ class MainViewController: UIViewController {
     private var presentableMagicAnswer: PresentableMagicAnswer?
     private var counterLabel = UILabel()
 
-    required init?(mainViewModel: MainViewModel) {
+    required init(mainViewModel: MainViewModel) {
         self.mainViewModel = mainViewModel
         super.init(nibName: nil, bundle: nil)
       }
 
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -58,7 +58,7 @@ class MainViewController: UIViewController {
     private func toSettings() {
         let settingsModel = SettingsModel()
         let settingsViewModel = SettingsViewModel(settingsModel: settingsModel)
-        guard let settingsVC = SettingsViewController(settingsViewModel: settingsViewModel) else {return}
+        let settingsVC = SettingsViewController(settingsViewModel: settingsViewModel)
         navigationController?.pushViewController(settingsVC, animated: true)
     }
 
@@ -146,8 +146,8 @@ private extension MainViewController {
         shakeButton.setTitleColor(Asset.Colors.titles.color, for: .normal)
         view.addSubview(shakeButton)
         shakeButton.snp.makeConstraints { (make) -> Void in
-            make.bottom.left.right.equalTo(view.safeAreaLayoutGuide).inset(24)
-            make.top.greaterThanOrEqualTo(answerLabel.snp.bottom).offset(24)
+            make.left.right.equalTo(view.safeAreaLayoutGuide).inset(24)
+            make.top.equalTo(answerLabel).inset(48)
         }
     }
 

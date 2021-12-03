@@ -10,71 +10,125 @@ import CoreData
 import UIKit
 
 protocol DBProtocol {
-    func saveAnswer(answer: String?, type: String?, question: String?)
-    func fetchAnswers() -> [Ball]
-    func getAnswer(completion: @escaping (Result<MagicResponse?, CallError>) -> Void)
+    func saveAnswer(answer: BallRepositoryAnswer)
+    func getAnswer(completion: @escaping (Result<Ball?, CallError>) -> Void)
+    func getAnswer(index: IndexPath, completion: @escaping (Result<Ball?, CallError>) -> Void)
+    func getAnswers(completion: @escaping (Result<[Ball]?, CallError>) -> Void)
+    func deleteAnswer(indexPath: IndexPath)
+    func updateAnswer(indexPath: IndexPath, answer: String)
 }
 
 class DBClient: DBProtocol {
+    private var fetchedResultsController: NSFetchedResultsController<Ball>?
+    private let managedContext: NSManagedObjectContext
 
-    let managedContext: NSManagedObjectContext
-    var balls: [NSManagedObject] = []
-
-    // MARK: - Core Data stack
-    var persistentContainer: NSPersistentContainer = {
+    private var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Balls")
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+
+        let description = NSPersistentStoreDescription()
+        description.shouldMigrateStoreAutomatically = true
+        description.shouldInferMappingModelAutomatically = true
+        container.persistentStoreDescriptions = [description]
+        container.loadPersistentStores { storeDescription, error in
+            print("error: \(error?.localizedDescription ?? "") storeDescription: \(storeDescription)")
+        }
         return container
     }()
 
-    init() {
-        self.managedContext = self.persistentContainer.viewContext
-    }
+    init(controller: NSFetchedResultsControllerDelegate) {
+        managedContext = persistentContainer.viewContext
+        managedContext.automaticallyMergesChangesFromParent = true
 
-    func saveAnswer(answer: String?, type: String?, question: String?) {
-        guard let answer = answer, let type = type, let question = question else {return}
-        let newAnswer = Ball(context: managedContext)
-        newAnswer.answer = answer
-        newAnswer.type = type
-        newAnswer.question = question
-        newAnswer.id = UUID()
-        let answers = fetchAnswers()
-        var isFound = false
-        for answer in answers where answer.answer == newAnswer.answer {
-            isFound = true
-            print("found new answer \(answer.answer ?? "")")
-        }
-        if !isFound {
-            do {
-                try managedContext.save()
-            } catch {
-                print(error)
-            }
-        }
-    }
-
-    func fetchAnswers() -> [Ball] {
-        var answers = [Ball]()
+        let fetchRequest: NSFetchRequest<Ball> = NSFetchRequest<Ball>(entityName: "Ball")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: managedContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        fetchedResultsController?.delegate = controller
         do {
-            answers = try managedContext.fetch(Ball.fetchRequest())
-            print(answers)
-        } catch {
-            print("fetchAnswers error")
-        }
-        return answers
+            try fetchedResultsController?.performFetch()
+            guard let answers = fetchedResultsController?.fetchedObjects else {return}
+            print("fetchAnswerResultsController() count = \(answers.count)")
+        } catch {}
     }
 
-    func getAnswer(completion: @escaping (Result<MagicResponse?, CallError>) -> Void) {
-        let answers = fetchAnswers()
+    func saveAnswer(answer: BallRepositoryAnswer) {
+        let backgroundMOC = persistentContainer.newBackgroundContext()
+        backgroundMOC.performAndWait {
+            let newAnswer = Ball(context: backgroundMOC)
+            newAnswer.answer = answer.answer
+            newAnswer.type = answer.type
+            newAnswer.question = answer.question
+            newAnswer.isUserCreated = answer.isUserCreated
+            if newAnswer.isUserCreated {
+                newAnswer.date = Date()
+            } else {
+                newAnswer.date = answer.date
+            }
+            try? backgroundMOC.save()
+        }
+        print("saveAnswerBackground = \(answer.answer ?? "")")
+    }
+
+    func deleteAnswer(indexPath: IndexPath) {
+        let context = fetchedResultsController?.managedObjectContext
+        guard let objectToDelete = fetchedResultsController?.object(at: indexPath) else {return}
+        context?.delete(objectToDelete)
+        saveContext()
+    }
+
+    func updateAnswer(indexPath: IndexPath, answer: String) {
+        let backgroundMOC = persistentContainer.newBackgroundContext()
+        backgroundMOC.performAndWait {
+            guard let object = fetchedResultsController?.object(at: indexPath) else {return}
+            guard let ball = backgroundMOC.object(with: object.objectID) as? Ball else {return}
+            ball.answer = answer
+            try? backgroundMOC.save()
+        }
+    }
+
+    private func saveContext() {
+        guard managedContext.hasChanges else {return}
+        do {
+            try managedContext.save()
+        } catch {
+            managedContext.rollback()
+            print(error.localizedDescription)
+        }
+    }
+
+    func getAnswer(completion: @escaping (Result<Ball?, CallError>) -> Void) {
+        guard let answers = fetchedResultsController?.fetchedObjects else {return}
         if answers.count > 0 {
             let number = Int.random(in: 0..<answers.count)
-            completion(.success(answers[number].ballToMagic()))
+            completion(.success(answers[number]))
         } else {
             completion(.failure(CallError.unknownWithoutError))
+        }
+    }
+
+    func getAnswer(index: IndexPath, completion: @escaping (Result<Ball?, CallError>) -> Void) {
+        guard let answers = fetchedResultsController?.object(at: index) else {
+            completion(.failure(CallError.unknownWithoutError))
+            return
+        }
+        completion(.success(answers))
+    }
+
+    func getAnswers(completion: @escaping (Result<[Ball]?, CallError>) -> Void) {
+        guard let answers = fetchedResultsController?.fetchedObjects else {return}
+        if answers.count > 0 {
+            completion(.success(answers))
+        } else {
+            completion(.failure(CallError.unknownWithoutError))
+            print("getAnswers error")
         }
     }
 }

@@ -10,7 +10,6 @@ import Foundation
 struct MagicAnswer {
     var answer: String?
     var type: String?
-    var selectionHandler: (() -> Void)?
 }
 
 extension MagicAnswer {

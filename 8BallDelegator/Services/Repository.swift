@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 class Repository {
     private let networkDataProvider: NetworkDataProvider
@@ -16,13 +17,13 @@ class Repository {
         self.dbDataProvider = dbDataProvider
     }
 
-    func getAnswer(completion: @escaping (Result<MagicResponse?, CallError>) -> Void) {
+    func getAnswer(completion: @escaping (Result<BallRepositoryAnswer?, CallError>) -> Void) {
         networkDataProvider.getAnswer { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let success):
-                    guard let success = success, let magic = success.magic else {return}
-                    self?.dbDataProvider.saveAnswer(answer: magic.answer, type: magic.type, question: magic.question)
+                    guard let success = success?.toBallRepositoryAnswer() else {return}
+                    self?.dbDataProvider.saveAnswer(answer: success)
                     completion(.success(success))
                 case .failure(let error):
                     switch error {
@@ -31,7 +32,7 @@ class Repository {
                             switch result {
                             case .success(let success):
                                 guard let success = success else {return}
-                                completion(.success(success))
+                                completion(.success(success.toBallRepositoryAnswer()))
                             case .failure(let error):
                                 completion(.failure(.networkError(errorStr)))
                                 print(error)
@@ -43,5 +44,46 @@ class Repository {
                 }
             }
         }
+    }
+
+    func getAnswer(indexPath: IndexPath, completion: @escaping (Result<BallRepositoryAnswer?, CallError>) -> Void) {
+        dbDataProvider.getAnswer(index: indexPath) { result in
+            switch result {
+            case .success(let success):
+                guard let success = success else {return}
+                completion(.success(success.toBallRepositoryAnswer()))
+            case .failure(let error):
+                completion(.failure(.unknownError(error)))
+            }
+        }
+    }
+
+    func loadAnswerHistory(completion: @escaping (Result<[BallRepositoryAnswer]?, CallError>) -> Void) {
+        dbDataProvider.getAnswers { result in
+            switch result {
+            case .success(let success):
+                guard let success = success else {return}
+                var answers = [BallRepositoryAnswer]()
+                for answer in success {
+                    answers.append(answer.toBallRepositoryAnswer())
+                }
+                completion(.success(answers))
+            case .failure(let error):
+                completion(.failure(error))
+                print("loadAnswerHistory error")
+            }
+        }
+    }
+
+    func deleteAnswer(indexPath: IndexPath) {
+        dbDataProvider.deleteAnswer(indexPath: indexPath)
+    }
+
+    func updateAnswer(indexPath: IndexPath, answer: String) {
+        dbDataProvider.updateAnswer(indexPath: indexPath, answer: answer)
+    }
+
+    func saveAnswer(answer: BallRepositoryAnswer) {
+        dbDataProvider.saveAnswer(answer: answer)
     }
 }

@@ -13,12 +13,12 @@ class SettingsViewController: UIViewController {
     private var cells: [SettingsCell] = []
     private var tableView = UITableView()
 
-    required init?(settingsViewModel: SettingsViewModel) {
+    required init(settingsViewModel: SettingsViewModel) {
         self.settingsViewModel = settingsViewModel
         super.init(nibName: nil, bundle: nil)
     }
 
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
