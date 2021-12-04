@@ -16,6 +16,10 @@ class MainViewController: UIViewController {
     private let mainViewModel: MainViewModel
     private var presentableMagicAnswer: PresentableMagicAnswer?
     private var counterLabel = UILabel()
+    private var ball: UIView?
+    private var newAnswer: Bool = false
+    private var timer: Timer?
+    private var timerTime: Double?
 
     required init(mainViewModel: MainViewModel) {
         self.mainViewModel = mainViewModel
@@ -63,16 +67,15 @@ class MainViewController: UIViewController {
     }
 
     private func getAnswer() {
+        animationWaitAnswer(targetView: self.ball!, withDuration: 3)
         counterLabel.text = mainViewModel.updateAndReturnCounter()
         mainViewModel.getAnswer(currentAnswer: presentableMagicAnswer?.answer, completion: { [weak self] result in
             switch result {
             case .success(let success):
                 guard let presentableMagicAnswer = success else {return}
-                print(presentableMagicAnswer)
                 DispatchQueue.main.async {
-                    self?.answerLabel.text = presentableMagicAnswer.answer ?? ""
-                    self?.answerLabel.textColor = presentableMagicAnswer.color?.color
                     self?.presentableMagicAnswer = presentableMagicAnswer
+                    self?.newAnswer = true
                 }
             case .failure(let error):
                 switch error {
@@ -84,6 +87,11 @@ class MainViewController: UIViewController {
                 }
             }
         })
+    }
+
+    func updateAnswer(answer: PresentableMagicAnswer) {
+        answerLabel.text = answer.answer ?? ""
+        answerLabel.textColor = answer.color?.color
     }
 
     // Enable detection of shake motion
@@ -101,6 +109,56 @@ class MainViewController: UIViewController {
 
     @IBAction func getAnswerWithoutShake(_ sender: Any) {
         getAnswer()
+    }
+}
+
+private extension MainViewController {
+    func animationWaitAnswer(targetView: UIView, withDuration: Double) {
+        self.newAnswer = false
+        startOtpTimer(totalTime: withDuration)
+        animationBall(targetView: targetView, withDuration: withDuration)
+    }
+
+    func animationBall(targetView: UIView, withDuration: Double) {
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut) {
+            targetView.transform = targetView.transform.rotated(by: CGFloat(Float.pi))
+        } completion: { _ in
+            guard let time = self.timerTime else {return}
+            print("time:\(time) newAnswer: \(self.newAnswer)")
+            if (time <= 2 && self.newAnswer) || time == 0 {
+                print("animationWhileWaitAnswer stop")
+                self.stopTimer()
+                if let answer = self.presentableMagicAnswer {
+                    self.updateAnswer(answer: answer)
+                }
+            } else {
+                print("animationWhileWaitAnswer continue")
+                self.animationBall(targetView: targetView, withDuration: withDuration)
+            }
+        }
+    }
+
+    func startOtpTimer(totalTime: Double) {
+        timerTime = totalTime + 2
+        self.timer = Timer.scheduledTimer(
+            timeInterval: 1.0,
+            target: self,
+            selector: #selector(updateTimer),
+            userInfo: nil,
+            repeats: true)
+    }
+
+    @objc func updateTimer() {
+        if timerTime ?? 0 > 0 {
+            timerTime? -= 1
+        } else {
+            stopTimer()
+        }
+    }
+
+    func stopTimer() {
+        self.timer?.invalidate()
+        self.timer = nil
     }
 }
 
@@ -127,6 +185,7 @@ private extension MainViewController {
             make.top.equalTo(ball.snp.bottom).offset(48)
             make.left.right.equalTo(view.safeAreaLayoutGuide).inset(24)
         }
+        self.ball = ball
 
         answerLabel = UILabel()
         answerLabel.text = ""
@@ -165,8 +224,9 @@ private extension MainViewController {
 
     func createEightBall() -> UIView {
         let ball = CornerRadiusView()
+        ball.startColor = Asset.Colors.whiteOnly.color
+        ball.endColor = Asset.Colors.ballBackground.color
         ball.cornerRadius = 125
-        ball.borderColor = Asset.Colors.whiteOnly.color
         ball.borderWidth = 1
         ball.backgroundColor = Asset.Colors.ballBackground.color
         view.addSubview(ball)
