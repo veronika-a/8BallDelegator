@@ -9,6 +9,7 @@ import UIKit
 import Foundation
 import OSLog
 import SnapKit
+import SceneKit
 
 class MainViewController: UIViewController {
 
@@ -16,6 +17,10 @@ class MainViewController: UIViewController {
     private let mainViewModel: MainViewModel
     private var presentableMagicAnswer: PresentableMagicAnswer?
     private var counterLabel = UILabel()
+    private var ball3D: SCNNode?
+    private var newAnswer: Bool = false
+    private var timer: Timer?
+    private var timerTime: Double?
 
     required init(mainViewModel: MainViewModel) {
         self.mainViewModel = mainViewModel
@@ -29,6 +34,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         changeAppearance()
+        create3D()
         createView()
     }
 
@@ -63,16 +69,16 @@ class MainViewController: UIViewController {
     }
 
     private func getAnswer() {
+        changeAppearance()
+        animationWaitAnswer(withDuration: 3)
         counterLabel.text = mainViewModel.updateAndReturnCounter()
         mainViewModel.getAnswer(currentAnswer: presentableMagicAnswer?.answer, completion: { [weak self] result in
             switch result {
             case .success(let success):
                 guard let presentableMagicAnswer = success else {return}
-                print(presentableMagicAnswer)
                 DispatchQueue.main.async {
-                    self?.answerLabel.text = presentableMagicAnswer.answer ?? ""
-                    self?.answerLabel.textColor = presentableMagicAnswer.color?.color
                     self?.presentableMagicAnswer = presentableMagicAnswer
+                    self?.newAnswer = true
                 }
             case .failure(let error):
                 switch error {
@@ -84,6 +90,11 @@ class MainViewController: UIViewController {
                 }
             }
         })
+    }
+
+    func updateAnswer(answer: PresentableMagicAnswer) {
+        answerLabel.text = answer.answer ?? ""
+        answerLabel.textColor = answer.color?.color
     }
 
     // Enable detection of shake motion
@@ -105,6 +116,93 @@ class MainViewController: UIViewController {
 }
 
 private extension MainViewController {
+    func animationWaitAnswer(withDuration: Double) {
+        self.newAnswer = false
+        startOtpTimer(totalTime: withDuration)
+        animationBall(withDuration: withDuration)
+    }
+
+    // MARK: - 2d animation
+    func animationBall(targetView: UIView, withDuration: Double) {
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut) {
+            targetView.transform = targetView.transform.rotated(by: CGFloat(Float.pi))
+        } completion: { _ in
+            guard let time = self.timerTime else {return}
+            print("time:\(time) newAnswer: \(self.newAnswer)")
+            if (time <= 2 && self.newAnswer) || time == 0 {
+                print("animationWhileWaitAnswer stop")
+                self.stopTimer()
+                if let answer = self.presentableMagicAnswer {
+                    self.updateAnswer(answer: answer)
+                }
+            } else {
+                print("animationWhileWaitAnswer continue")
+                self.animationBall(targetView: targetView, withDuration: withDuration)
+            }
+        }
+    }
+
+    func animationBall(withDuration: Double) {
+        let spin = CABasicAnimation(keyPath: "rotation")
+        spin.fromValue = NSValue(scnVector4: SCNVector4(x: 0, y: 0, z: 1, w: 0))
+        spin.toValue = NSValue(scnVector4: SCNVector4(x: 0, y: 1, z: 0, w: 2 * Float.pi))
+        spin.duration = 1
+        spin.repeatCount = 1
+        self.ball3D?.addAnimation(spin, forKey: "spin around")
+        UIView.transition(with: answerLabel, duration: 1, options: .transitionCrossDissolve, animations: {
+            self.answerLabel.frame = self.answerLabel.frame.offsetBy(dx: -100, dy: -100)
+            self.answerLabel.transform = self.answerLabel.transform.rotated(by: .pi)
+            self.answerLabel.alpha -=  0.25
+        }, completion: { _ in
+            guard let time = self.timerTime else {return}
+            print("time:\(time) newAnswer: \(self.newAnswer)")
+            if (time <= 2 && self.newAnswer) || time == 0 {
+                print("animationWhileWaitAnswer stop")
+                self.stopTimer()
+                if let answer = self.presentableMagicAnswer {
+                    self.updateAnswer(answer: answer)
+                    UIView.transition(
+                        with: self.answerLabel,
+                        duration: 1,
+                        options: .transitionCrossDissolve,
+                        animations: {
+                        self.answerLabel.frame = self.answerLabel.frame.offsetBy(dx: 100, dy: 100)
+                        self.answerLabel.transform = self.answerLabel.transform.rotated(by: .pi)
+                        self.answerLabel.alpha = 1
+                    }, completion: nil)
+                }
+            } else {
+                print("animationWhileWaitAnswer continue")
+                self.animationBall(withDuration: withDuration)
+            }
+        })
+    }
+
+    func startOtpTimer(totalTime: Double) {
+        timerTime = totalTime + 2
+        self.timer = Timer.scheduledTimer(
+            timeInterval: 1.0,
+            target: self,
+            selector: #selector(updateTimer),
+            userInfo: nil,
+            repeats: true)
+    }
+
+    @objc func updateTimer() {
+        if timerTime ?? 0 > 0 {
+            timerTime? -= 1
+        } else {
+            stopTimer()
+        }
+    }
+
+    func stopTimer() {
+        self.timer?.invalidate()
+        self.timer = nil
+    }
+}
+
+private extension MainViewController {
     func createView() {
         addCounterLabel()
         view.backgroundColor = Asset.Colors.mainBackground.color
@@ -116,7 +214,6 @@ private extension MainViewController {
             make.height.equalTo(100)
         }
 
-        let ball = createEightBall()
         let needAnswerLabel = UILabel()
         needAnswerLabel.text = "NEED SOME ANSWERS?"
         needAnswerLabel.textColor = Asset.Colors.titles.color
@@ -124,7 +221,7 @@ private extension MainViewController {
         needAnswerLabel.font = needAnswerLabel.font.withSize(17)
         view.addSubview(needAnswerLabel)
         needAnswerLabel.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(ball.snp.bottom).offset(48)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(48)
             make.left.right.equalTo(view.safeAreaLayoutGuide).inset(24)
         }
 
@@ -163,10 +260,61 @@ private extension MainViewController {
         }
     }
 
+    func create3D() {
+        let sceneView = SCNView(frame: self.view.frame)
+        self.view.addSubview(sceneView)
+        let scene = SCNScene()
+        sceneView.backgroundColor = Asset.Colors.mainBackground.color
+        sceneView.scene = scene
+
+        let camera = SCNCamera()
+        let cameraNode = SCNNode()
+        cameraNode.camera = camera
+        cameraNode.position = SCNVector3(x: 0.0, y: 0.0, z: 3.0)
+
+        let light = SCNLight()
+        light.type = SCNLight.LightType.directional
+        light.spotInnerAngle = 30.0
+        light.spotOuterAngle = 80.0
+        light.castsShadow = true
+        let lightNode = SCNNode()
+        lightNode.light = light
+        lightNode.position = SCNVector3(x: 0.1, y: 0.5, z: 1.0)
+
+        let sphereGeometry = SCNSphere(radius: 0.5)
+        let sphereNode = SCNNode(geometry: sphereGeometry)
+
+        let planeGeometry = SCNPlane(width: 50.0, height: 50.0)
+        let planeNode = SCNNode(geometry: planeGeometry)
+        planeNode.eulerAngles = SCNVector3(x: GLKMathDegreesToRadians(-90), y: 0, z: 0)
+        planeNode.position = SCNVector3(x: 0, y: -1, z: 0)
+
+        let sphereMaterial = SCNMaterial()
+        sphereMaterial.diffuse.contents = Asset.Assets.ball8Material.image
+        sphereGeometry.materials = [sphereMaterial]
+
+        let planeMaterial = SCNMaterial()
+        planeMaterial.diffuse.contents = Asset.Colors.ballBackground.color
+        planeGeometry.materials = [planeMaterial]
+
+        let constraint = SCNLookAtConstraint(target: sphereNode)
+        constraint.isGimbalLockEnabled = true
+        cameraNode.constraints = [constraint]
+        lightNode.constraints = [constraint]
+
+        scene.rootNode.addChildNode(lightNode)
+        scene.rootNode.addChildNode(cameraNode)
+        scene.rootNode.addChildNode(sphereNode)
+        scene.rootNode.addChildNode(planeNode)
+        ball3D = sphereNode
+    }
+
+    // MARK: - 2d ball
     func createEightBall() -> UIView {
         let ball = CornerRadiusView()
+        ball.startColor = Asset.Colors.whiteOnly.color
+        ball.endColor = Asset.Colors.ballBackground.color
         ball.cornerRadius = 125
-        ball.borderColor = Asset.Colors.whiteOnly.color
         ball.borderWidth = 1
         ball.backgroundColor = Asset.Colors.ballBackground.color
         view.addSubview(ball)
@@ -178,7 +326,7 @@ private extension MainViewController {
         }
 
         let smallBall = CornerRadiusView()
-        smallBall.cornerRadius = ball.cornerRadius / 2
+        smallBall.cornerRadius = ballHight / 4
         smallBall.backgroundColor = Asset.Colors.whiteOnly.color
         ball.addSubview(smallBall)
         smallBall.snp.makeConstraints { (make) -> Void in
