@@ -335,9 +335,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94392F25271D749F0073F85D /* Build configuration list for PBXNativeTarget "8BallDelegator" */;
 			buildPhases = (
+				D1E5DC5A80360C4672D156EB /* [CP] Check Pods Manifest.lock */,
 				94F2D6F0273D417B002A5D9D /* SwiftLint */,
 				94F2D6F1273D57AF002A5D9D /* SwiftGen */,
-				D1E5DC5A80360C4672D156EB /* [CP] Check Pods Manifest.lock */,
 				94392F0D271D749C0073F85D /* Sources */,
 				94392F0E271D749C0073F85D /* Frameworks */,
 				94392F0F271D749C0073F85D /* Resources */,

@@ -5,34 +5,32 @@
 //  Created by Veronika Andrianova on 12.11.2021.
 //
 
+import RxSwift
+import RxCocoa
+
 class MainViewModel {
     private let model: MainModel
-    private var magicAnswer: MagicAnswer?
+    var magicAnswer = BehaviorRelay<MagicAnswer>(value: MagicAnswer())
     private var currentAnswerCounter: Int = 0
+    private let disposeBag = DisposeBag()
 
     init(model: MainModel) {
         self.model = model
+        model
+            .managedAnswer.map {$0.toMagicAnswer()}
+            .bind(to: magicAnswer)
+            .disposed(by: disposeBag)
     }
 
-    func updateAndReturnCounter() -> String? {
-        return model.updateAndReturnCounter()
+    func updateAndReturnCounter() {
+        model.updateAndReturnCounter()
     }
 
-    func getAnswer(currentAnswer: String?, completion: @escaping (Result<PresentableMagicAnswer?, CallError>) -> Void) {
-        model.getAnswer { [weak self] result in
-            switch result {
-            case .success(let success):
-                guard var magicAnswer = success else {return}
-                magicAnswer.answer = magicAnswer.answer?.uppercased()
-                if magicAnswer.answer == currentAnswer && self?.currentAnswerCounter ?? 0 < 5 {
-                    self?.getAnswer(currentAnswer: currentAnswer, completion: completion)
-                } else {
-                    self?.magicAnswer = magicAnswer
-                    completion(.success(magicAnswer.toPresentableMagicAnswer()))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+    func getAnswer(currentAnswer: String?) {
+        model.getAnswer()
+        //    magicAnswer.answer = magicAnswer.answer?.uppercased()
+        //    if magicAnswer.answer == currentAnswer && self?.currentAnswerCounter ?? 0 < 5 {
+        //        self?.getAnswer(currentAnswer: currentAnswer, completion: completion)
+        //    }
     }
 }

@@ -10,21 +10,43 @@ import Foundation
 import OSLog
 import SnapKit
 import SceneKit
+import RxSwift
+import RxCocoa
 
 class MainViewController: UIViewController {
 
     private var answerLabel = UILabel()
+    private var shakeButton = UIButton()
     private let mainViewModel: MainViewModel
-    private var presentableMagicAnswer: PresentableMagicAnswer?
+    private var presentableMagicAnswer = BehaviorRelay<PresentableMagicAnswer>(value: PresentableMagicAnswer())
     private var counterLabel = UILabel()
     private var ball3D: SCNNode?
     private var newAnswer: Bool = false
     private var timer: Timer?
     private var timerTime: Double?
+    private let value = BehaviorRelay<Int>(value: 0)
+    private let disposeBag = DisposeBag()
 
     required init(mainViewModel: MainViewModel) {
         self.mainViewModel = mainViewModel
         super.init(nibName: nil, bundle: nil)
+        mainViewModel
+            .magicAnswer.map {$0.toPresentableMagicAnswer()}
+            .bind(to: presentableMagicAnswer)
+            .disposed(by: disposeBag)
+        mainViewModel
+            .magicAnswer
+            .subscribe({ [weak self] _ in
+                guard let self = self else { return }
+                self.newAnswer = true
+            })
+            .disposed(by: disposeBag)
+        presentableMagicAnswer
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAnswer(answer: self.presentableMagicAnswer.value)
+            }
+            .disposed(by: disposeBag)
       }
 
     required init(coder: NSCoder) {
@@ -36,6 +58,26 @@ class MainViewController: UIViewController {
         changeAppearance()
         create3D()
         createView()
+        setupBindings()
+    }
+
+    private func setupBindings() {
+        value
+            .filter { $0 > 0 }
+            .map(String.init)
+            .bind(to: counterLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        shakeButton.rx.tap
+            .withLatestFrom(value)
+            .map { $0 + 1 }
+            .bind(to: value)
+            .disposed(by: disposeBag)
+        shakeButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.getAnswer()
+            })
+            .disposed(by: disposeBag)
     }
 
     private func changeAppearance() {
@@ -71,25 +113,8 @@ class MainViewController: UIViewController {
     private func getAnswer() {
         changeAppearance()
         animationWaitAnswer(withDuration: 3)
-        counterLabel.text = mainViewModel.updateAndReturnCounter()
-        mainViewModel.getAnswer(currentAnswer: presentableMagicAnswer?.answer, completion: { [weak self] result in
-            switch result {
-            case .success(let success):
-                guard let presentableMagicAnswer = success else {return}
-                DispatchQueue.main.async {
-                    self?.presentableMagicAnswer = presentableMagicAnswer
-                    self?.newAnswer = true
-                }
-            case .failure(let error):
-                switch error {
-                case .networkError(let networkError):
-                    self?.errorMessage(error: networkError)
-                    print(networkError)
-                default:
-                    print(error)
-                }
-            }
-        })
+        mainViewModel.updateAndReturnCounter()
+        mainViewModel.getAnswer(currentAnswer: presentableMagicAnswer.value.answer)
     }
 
     func updateAnswer(answer: PresentableMagicAnswer) {
@@ -108,10 +133,6 @@ class MainViewController: UIViewController {
     // MARK: - IBAction
     @objc func settings() {
         toSettings()
-    }
-
-    @IBAction func getAnswerWithoutShake(_ sender: Any) {
-        getAnswer()
     }
 }
 
@@ -132,9 +153,7 @@ private extension MainViewController {
             if (time <= 2 && self.newAnswer) || time == 0 {
                 print("animationWhileWaitAnswer stop")
                 self.stopTimer()
-                if let answer = self.presentableMagicAnswer {
-                    self.updateAnswer(answer: answer)
-                }
+                self.updateAnswer(answer: self.presentableMagicAnswer.value)
             } else {
                 print("animationWhileWaitAnswer continue")
                 self.animationBall(targetView: targetView, withDuration: withDuration)
@@ -159,18 +178,16 @@ private extension MainViewController {
             if (time <= 2 && self.newAnswer) || time == 0 {
                 print("animationWhileWaitAnswer stop")
                 self.stopTimer()
-                if let answer = self.presentableMagicAnswer {
-                    self.updateAnswer(answer: answer)
-                    UIView.transition(
-                        with: self.answerLabel,
-                        duration: 1,
-                        options: .transitionCrossDissolve,
-                        animations: {
+                self.updateAnswer(answer: self.presentableMagicAnswer.value)
+                UIView.transition(
+                    with: self.answerLabel,
+                    duration: 1,
+                    options: .transitionCrossDissolve,
+                    animations: {
                         self.answerLabel.frame = self.answerLabel.frame.offsetBy(dx: 100, dy: 100)
                         self.answerLabel.transform = self.answerLabel.transform.rotated(by: .pi)
                         self.answerLabel.alpha = 1
                     }, completion: nil)
-                }
             } else {
                 print("animationWhileWaitAnswer continue")
                 self.animationBall(withDuration: withDuration)
@@ -237,7 +254,6 @@ private extension MainViewController {
         }
 
         let shakeButton = UIButton(type: .custom)
-        shakeButton.addTarget(self, action: #selector(getAnswerWithoutShake), for: .touchUpInside)
         shakeButton.setTitle("Shake", for: .normal)
         shakeButton.titleLabel?.font = needAnswerLabel.font.withSize(17)
         shakeButton.setTitleColor(Asset.Colors.titles.color, for: .normal)
@@ -246,6 +262,7 @@ private extension MainViewController {
             make.left.right.equalTo(view.safeAreaLayoutGuide).inset(24)
             make.top.equalTo(answerLabel).inset(48)
         }
+        self.shakeButton = shakeButton
     }
 
     func addCounterLabel() {
