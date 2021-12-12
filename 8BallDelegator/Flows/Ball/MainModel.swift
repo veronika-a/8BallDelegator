@@ -14,7 +14,6 @@ class MainModel {
     weak var delegate: ReloadDataDelegate?
     private let secureStorage: SecureStorage
     private var secureCounter: Int = 0
-    private let disposeBag = DisposeBag()
     var managedAnswer = BehaviorRelay<ManagedAnswer>(value: ManagedAnswer())
 
     init(repository: Repository, secureStorage: SecureStorage) {

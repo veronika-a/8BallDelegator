@@ -16,8 +16,12 @@ class MainViewModel {
 
     init(model: MainModel) {
         self.model = model
-        model
-            .managedAnswer.map {$0.toMagicAnswer()}
+        model.managedAnswer
+            .map({ managetAnswer in
+                var magic = managetAnswer.toMagicAnswer()
+                magic.answer = magic.answer?.uppercased()
+                return magic
+            })
             .bind(to: magicAnswer)
             .disposed(by: disposeBag)
     }
@@ -28,9 +32,5 @@ class MainViewModel {
 
     func getAnswer(currentAnswer: String?) {
         model.getAnswer()
-        //    magicAnswer.answer = magicAnswer.answer?.uppercased()
-        //    if magicAnswer.answer == currentAnswer && self?.currentAnswerCounter ?? 0 < 5 {
-        //        self?.getAnswer(currentAnswer: currentAnswer, completion: completion)
-        //    }
     }
 }

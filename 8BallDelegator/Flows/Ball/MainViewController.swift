@@ -30,23 +30,6 @@ class MainViewController: UIViewController {
     required init(mainViewModel: MainViewModel) {
         self.mainViewModel = mainViewModel
         super.init(nibName: nil, bundle: nil)
-        mainViewModel
-            .magicAnswer.map {$0.toPresentableMagicAnswer()}
-            .bind(to: presentableMagicAnswer)
-            .disposed(by: disposeBag)
-        mainViewModel
-            .magicAnswer
-            .subscribe({ [weak self] _ in
-                guard let self = self else { return }
-                self.newAnswer = true
-            })
-            .disposed(by: disposeBag)
-        presentableMagicAnswer
-            .subscribe { [weak self] _ in
-                guard let self = self else { return }
-                self.updateAnswer(answer: self.presentableMagicAnswer.value)
-            }
-            .disposed(by: disposeBag)
       }
 
     required init(coder: NSCoder) {
@@ -62,12 +45,28 @@ class MainViewController: UIViewController {
     }
 
     private func setupBindings() {
+        mainViewModel.magicAnswer
+            .map {$0.toPresentableMagicAnswer()}
+            .bind(to: presentableMagicAnswer)
+            .disposed(by: disposeBag)
+        mainViewModel.magicAnswer
+            .subscribe({ [weak self] _ in
+                guard let self = self else { return }
+                self.newAnswer = true
+            })
+            .disposed(by: disposeBag)
+        presentableMagicAnswer
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAnswer(answer: self.presentableMagicAnswer.value)
+            }
+            .disposed(by: disposeBag)
+
         value
             .filter { $0 > 0 }
             .map(String.init)
             .bind(to: counterLabel.rx.text)
             .disposed(by: disposeBag)
-
         shakeButton.rx.tap
             .withLatestFrom(value)
             .map { $0 + 1 }
