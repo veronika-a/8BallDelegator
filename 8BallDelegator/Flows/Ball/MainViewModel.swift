@@ -15,7 +15,7 @@ class MainViewModel {
     var magicAnswer: Observable<MagicAnswer> {
         return model.managedAnswer
             .map { value -> MagicAnswer in
-                var magic = self.model.managedAnswer.value.toMagicAnswer()
+                var magic = try self.model.managedAnswer.value().toMagicAnswer()
                 magic.answer = magic.answer?.uppercased()
                 return magic
             }

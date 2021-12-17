@@ -14,7 +14,7 @@ class MainModel {
     weak var delegate: ReloadDataDelegate?
     private let secureStorage: SecureStorage
     private var secureCounter: Int = 0
-    var managedAnswer = BehaviorRelay<ManagedAnswer>(value: ManagedAnswer())
+    var managedAnswer = BehaviorSubject<ManagedAnswer>(value: ManagedAnswer())
 
     init(repository: Repository, secureStorage: SecureStorage) {
         self.repository = repository
@@ -32,8 +32,9 @@ class MainModel {
             case .success(let success):
                 guard let success = success else {return}
                 let managedAnswer = success.toManagedAnswer()
-                self?.managedAnswer.accept(managedAnswer)
+                self?.managedAnswer.on(.next(managedAnswer))
             case .failure(let networkError):
+                self?.managedAnswer.on(.error(networkError))
                 print(networkError)
             }
         }
