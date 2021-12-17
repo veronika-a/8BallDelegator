@@ -112,7 +112,7 @@ class MainViewController: UIViewController {
     private func getAnswer() {
         changeAppearance()
         animationWaitAnswer(withDuration: 3)
-        mainViewModel.updateAndReturnCounter()
+        mainViewModel.updateCounter()
         mainViewModel.getAnswer(currentAnswer: presentableMagicAnswer.value.answer)
     }
 

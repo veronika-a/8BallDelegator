@@ -21,24 +21,20 @@ class MainModel {
         self.secureStorage = secureStorage
     }
 
-    func updateAndReturnCounter() {
+    func updateCounter() {
         secureCounter += 1
         secureStorage.setValue("\(secureCounter)", forKey: StorageKey.secureCounter.rawValue)
-        let value = secureStorage.getValue(forKey: StorageKey.secureCounter.rawValue) ?? ""
-        print("secureCounter = \(value)")
     }
 
     func getAnswer() {
         repository.getAnswer { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let success):
-                    guard let success = success else {return}
-                    let managedAnswer = success.toManagedAnswer()
-                    self?.managedAnswer.accept(managedAnswer)
-                case .failure(let networkError):
-                    print(networkError)
-                }
+            switch result {
+            case .success(let success):
+                guard let success = success else {return}
+                let managedAnswer = success.toManagedAnswer()
+                self?.managedAnswer.accept(managedAnswer)
+            case .failure(let networkError):
+                print(networkError)
             }
         }
     }

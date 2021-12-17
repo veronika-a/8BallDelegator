@@ -10,24 +10,23 @@ import RxCocoa
 
 class MainViewModel {
     private let model: MainModel
-    var magicAnswer = BehaviorRelay<MagicAnswer>(value: MagicAnswer())
     private var currentAnswerCounter: Int = 0
     private let disposeBag = DisposeBag()
+    var magicAnswer: Observable<MagicAnswer> {
+        return model.managedAnswer
+            .map { value -> MagicAnswer in
+                var magic = self.model.managedAnswer.value.toMagicAnswer()
+                magic.answer = magic.answer?.uppercased()
+                return magic
+            }
+    }
 
     init(model: MainModel) {
         self.model = model
-        model.managedAnswer
-            .map({ managetAnswer in
-                var magic = managetAnswer.toMagicAnswer()
-                magic.answer = magic.answer?.uppercased()
-                return magic
-            })
-            .bind(to: magicAnswer)
-            .disposed(by: disposeBag)
     }
 
-    func updateAndReturnCounter() {
-        model.updateAndReturnCounter()
+    func updateCounter() {
+        model.updateCounter()
     }
 
     func getAnswer(currentAnswer: String?) {
