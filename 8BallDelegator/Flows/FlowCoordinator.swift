@@ -98,11 +98,11 @@ final class BallFlowCoordinator: NavigationNode, FlowCoordinator {
             title: "Ball")
 
         let historyVC = container.resolve(HistoryViewController.self)!
-
         let historyTabItem = BallTabBarController.TabItem(
             viewController: historyVC,
             image: Asset.Assets.history.image,
             title: "History")
+
         let tabItems = [mainTabItem, historyTabItem]
         let tabBarVC = BallTabBarController(tabItems: tabItems)
 
@@ -178,7 +178,6 @@ final class BallFlowCoordinator: NavigationNode, FlowCoordinator {
         container.register(MainViewController.self) { resolver in
             return MainViewController(mainViewModel: resolver.resolve(MainViewModel.self)!, coordinator: self)
         }.inObjectScope(.transient)
-
     }
 
     func pushSettings() {

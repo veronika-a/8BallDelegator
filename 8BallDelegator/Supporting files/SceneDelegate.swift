@@ -40,7 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let container = Container()
         let coordinator = BallFlowCoordinator(container: container, parent: NavigationNode(parent: nil))
         let tabVC = coordinator.createFlow()
-        
+
         let navigationController = UINavigationController()
         navigationController.navigationBar.isHidden = true
 

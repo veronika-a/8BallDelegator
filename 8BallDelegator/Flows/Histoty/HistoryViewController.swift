@@ -14,7 +14,8 @@ class HistoryViewController: UIViewController {
     private var presentableHistoryAnswers: [PresentableHistoryAnswer]?
     private let fetchedResultsController: FetchedResultsController<Ball>
 
-    required init(viewModel: HistoryViewModel, fetchedResultsController: FetchedResultsController<Ball>) {
+    required init(
+        viewModel: HistoryViewModel, fetchedResultsController: FetchedResultsController<Ball>) {
         self.viewModel = viewModel
         self.fetchedResultsController = fetchedResultsController
         super.init(nibName: nil, bundle: nil)
