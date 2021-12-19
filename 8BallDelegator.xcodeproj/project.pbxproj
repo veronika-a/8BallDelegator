@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9425DF8B276F3E1B0058EDB9 /* FlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9425DF8A276F3E1B0058EDB9 /* FlowCoordinator.swift */; };
+		9425DF8D276F436B0058EDB9 /* NavigationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9425DF8C276F436B0058EDB9 /* NavigationNode.swift */; };
 		942CD542275513E600CF4239 /* FetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942CD541275513E600CF4239 /* FetchedResultsController.swift */; };
 		94392F17271D749C0073F85D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F16271D749C0073F85D /* SceneDelegate.swift */; };
 		94392F19271D749C0073F85D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F18271D749C0073F85D /* MainViewController.swift */; };
@@ -54,6 +56,8 @@
 
 /* Begin PBXFileReference section */
 		1F91DDE90B1B7B036232B2E2 /* Pods-8BallDelegator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-8BallDelegator.release.xcconfig"; path = "Target Support Files/Pods-8BallDelegator/Pods-8BallDelegator.release.xcconfig"; sourceTree = "<group>"; };
+		9425DF8A276F3E1B0058EDB9 /* FlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCoordinator.swift; sourceTree = "<group>"; };
+		9425DF8C276F436B0058EDB9 /* NavigationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationNode.swift; sourceTree = "<group>"; };
 		942CD541275513E600CF4239 /* FetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedResultsController.swift; sourceTree = "<group>"; };
 		94392F11271D749C0073F85D /* 8BallDelegator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 8BallDelegator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94392F16271D749C0073F85D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -257,6 +261,8 @@
 				948F8B54274D1FEC0023DCF6 /* Histoty */,
 				949B86FD2747BDF300509C19 /* Settings */,
 				948F8B50274D0F5B0023DCF6 /* BallTabBarController.swift */,
+				9425DF8A276F3E1B0058EDB9 /* FlowCoordinator.swift */,
+				9425DF8C276F436B0058EDB9 /* NavigationNode.swift */,
 			);
 			path = Flows;
 			sourceTree = "<group>";
@@ -477,6 +483,7 @@
 				948F8B62274D31AC0023DCF6 /* HistoryAnswer.swift in Sources */,
 				948F8B60274D31770023DCF6 /* ManagedHistoryAnswer.swift in Sources */,
 				94392F19271D749C0073F85D /* MainViewController.swift in Sources */,
+				9425DF8D276F436B0058EDB9 /* NavigationNode.swift in Sources */,
 				94392F2D271D79E30073F85D /* SettingsViewController.swift in Sources */,
 				94B5FB732739761F00CBBB54 /* Repository.swift in Sources */,
 				945B0D4E27529EA90000E01D /* Ball+CoreDataProperties.swift in Sources */,
@@ -494,6 +501,7 @@
 				948F8B5B274D21F80023DCF6 /* HistoryModel.swift in Sources */,
 				948F8B53274D1FE00023DCF6 /* HistoryViewController.swift in Sources */,
 				944F6D5B27401C690035CC45 /* AppDelegate.swift in Sources */,
+				9425DF8B276F3E1B0058EDB9 /* FlowCoordinator.swift in Sources */,
 				948F8B43274D00C30023DCF6 /* StorageKey.swift in Sources */,
 				94392F34271D944B0073F85D /* CornerRadiusView.swift in Sources */,
 				948F8B59274D21ED0023DCF6 /* HistoryViewModel.swift in Sources */,

@@ -12,9 +12,11 @@ class SettingsViewController: UIViewController {
     private let settingsViewModel: SettingsViewModel
     private var cells: [SettingsCell] = []
     private var tableView = UITableView()
+    private let coordinator: BallFlowCoordinator
 
-    required init(settingsViewModel: SettingsViewModel) {
+    required init(settingsViewModel: SettingsViewModel, coordinator: BallFlowCoordinator) {
         self.settingsViewModel = settingsViewModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -62,7 +64,7 @@ class SettingsViewController: UIViewController {
     }
 
     private func toMain() {
-        navigationController?.popViewController(animated: true)
+        coordinator.pop()
     }
 
     // MARK: - IBAction

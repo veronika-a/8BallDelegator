@@ -12,6 +12,7 @@ import SnapKit
 import SceneKit
 import RxSwift
 import RxCocoa
+import Swinject
 
 class MainViewController: UIViewController {
 
@@ -26,9 +27,11 @@ class MainViewController: UIViewController {
     private var timerTime: Double?
     private let value = BehaviorRelay<Int>(value: 0)
     private let disposeBag = DisposeBag()
+    private let coordinator: BallFlowCoordinator
 
-    required init(mainViewModel: MainViewModel) {
+    required init(mainViewModel: MainViewModel, coordinator: BallFlowCoordinator) {
         self.mainViewModel = mainViewModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
       }
 
@@ -103,10 +106,11 @@ class MainViewController: UIViewController {
     }
 
     private func toSettings() {
-        let settingsModel = SettingsModel()
-        let settingsViewModel = SettingsViewModel(settingsModel: settingsModel)
-        let settingsVC = SettingsViewController(settingsViewModel: settingsViewModel)
-        navigationController?.pushViewController(settingsVC, animated: true)
+//        let settingsModel = SettingsModel()
+//        let settingsViewModel = SettingsViewModel(settingsModel: settingsModel)
+//        let settingsVC = SettingsViewController(settingsViewModel: settingsViewModel)
+//        navigationController?.pushViewController(settingsVC, animated: true)
+        coordinator.pushSettings()
     }
 
     private func getAnswer() {
