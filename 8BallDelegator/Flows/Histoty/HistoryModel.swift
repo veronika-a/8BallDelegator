@@ -7,13 +7,18 @@
 
 import Foundation
 
-class HistoryModel {
+class HistoryModel: NavigationNode {
 
     private let repository: Repository
     private var managedAnswers: [ManagedHistoryAnswer]?
 
-    init(repository: Repository) {
+    init(repository: Repository, parent: NavigationNode?) {
         self.repository = repository
+        super.init(parent: parent)
+    }
+
+    func presentMain() {
+        raise(event: HistoryEvent.main)
     }
 
     func loadAnswerHistory(completion: @escaping (Result<[HistoryAnswer]?, CallError>) -> Void) {

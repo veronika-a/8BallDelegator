@@ -14,6 +14,10 @@ class HistoryViewModel {
     init(model: HistoryModel) {
         self.model = model
     }
+    
+    func presentMain() {
+        model.presentMain()
+    }
 
     func loadAnswerHistory(completion: @escaping (Result<[PresentableHistoryAnswer]?, CallError>) -> Void) {
         model.loadAnswerHistory { [weak self] result in
