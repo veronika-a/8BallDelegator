@@ -13,4 +13,8 @@ class SettingsViewModel {
     init(settingsModel: SettingsModel) {
         self.settingsModel = settingsModel
     }
+    
+    func presentMain() {
+        settingsModel.presentMain()
+    }
 }

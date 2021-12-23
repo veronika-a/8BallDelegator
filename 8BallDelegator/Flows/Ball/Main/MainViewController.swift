@@ -27,11 +27,9 @@ class MainViewController: UIViewController {
     private var timerTime: Double?
     private let value = BehaviorRelay<Int>(value: 0)
     private let disposeBag = DisposeBag()
-    private let coordinator: BallFlowCoordinator
 
-    required init(mainViewModel: MainViewModel, coordinator: BallFlowCoordinator) {
+    required init(mainViewModel: MainViewModel) {
         self.mainViewModel = mainViewModel
-        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
       }
 
@@ -105,12 +103,8 @@ class MainViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
-    private func toSettings() {
-//        let settingsModel = SettingsModel()
-//        let settingsViewModel = SettingsViewModel(settingsModel: settingsModel)
-//        let settingsVC = SettingsViewController(settingsViewModel: settingsViewModel)
-//        navigationController?.pushViewController(settingsVC, animated: true)
-        coordinator.pushSettings()
+    private func presentSettings() {
+        mainViewModel.presentSettings()
     }
 
     private func getAnswer() {
@@ -135,7 +129,7 @@ class MainViewController: UIViewController {
 
     // MARK: - IBAction
     @objc func settings() {
-        toSettings()
+        presentSettings()
     }
 }
 

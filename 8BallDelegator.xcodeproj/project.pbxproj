@@ -19,6 +19,13 @@
 		94392F34271D944B0073F85D /* CornerRadiusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F33271D944B0073F85D /* CornerRadiusView.swift */; };
 		94392F36271D9DF10073F85D /* CornerRadiusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F35271D9DF10073F85D /* CornerRadiusButton.swift */; };
 		94392F38271DAC2B0073F85D /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94392F37271DAC2B0073F85D /* NetworkService.swift */; };
+		943AFF81277344AD00326AF7 /* BallFlowAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943AFF80277344AD00326AF7 /* BallFlowAssembly.swift */; };
+		943AFF832773454500326AF7 /* BallFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943AFF822773454500326AF7 /* BallFlowCoordinator.swift */; };
+		943AFF85277345FB00326AF7 /* AppNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943AFF84277345FB00326AF7 /* AppNavigator.swift */; };
+		943AFF872773462900326AF7 /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943AFF862773462900326AF7 /* HistoryCoordinator.swift */; };
+		943AFF892773CA9500326AF7 /* HistoryFlowAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943AFF882773CA9500326AF7 /* HistoryFlowAssembly.swift */; };
+		943AFF8B2773CF9300326AF7 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943AFF8A2773CF9300326AF7 /* TabBarCoordinator.swift */; };
+		943AFF8D2773D0A600326AF7 /* TabBarAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943AFF8C2773D0A600326AF7 /* TabBarAssembly.swift */; };
 		944F6D5B27401C690035CC45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944F6D5A27401C690035CC45 /* AppDelegate.swift */; };
 		945B0D4D27529EA90000E01D /* Ball+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945B0D4B27529EA90000E01D /* Ball+CoreDataClass.swift */; };
 		945B0D4E27529EA90000E01D /* Ball+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945B0D4C27529EA90000E01D /* Ball+CoreDataProperties.swift */; };
@@ -69,6 +76,13 @@
 		94392F33271D944B0073F85D /* CornerRadiusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusView.swift; sourceTree = "<group>"; };
 		94392F35271D9DF10073F85D /* CornerRadiusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusButton.swift; sourceTree = "<group>"; };
 		94392F37271DAC2B0073F85D /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		943AFF80277344AD00326AF7 /* BallFlowAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallFlowAssembly.swift; sourceTree = "<group>"; };
+		943AFF822773454500326AF7 /* BallFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallFlowCoordinator.swift; sourceTree = "<group>"; };
+		943AFF84277345FB00326AF7 /* AppNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigator.swift; sourceTree = "<group>"; };
+		943AFF862773462900326AF7 /* HistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
+		943AFF882773CA9500326AF7 /* HistoryFlowAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFlowAssembly.swift; sourceTree = "<group>"; };
+		943AFF8A2773CF9300326AF7 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		943AFF8C2773D0A600326AF7 /* TabBarAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarAssembly.swift; sourceTree = "<group>"; };
 		944F6D5A27401C690035CC45 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		945B0D4A2752972B0000E01D /* Balls 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Balls 2.xcdatamodel"; sourceTree = "<group>"; };
 		945B0D4B27529EA90000E01D /* Ball+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ball+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -216,6 +230,27 @@
 			path = "UI Components";
 			sourceTree = "<group>";
 		};
+		943AFF7F2773440300326AF7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9425DF8A276F3E1B0058EDB9 /* FlowCoordinator.swift */,
+				9425DF8C276F436B0058EDB9 /* NavigationNode.swift */,
+				943AFF84277345FB00326AF7 /* AppNavigator.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		943AFF8E27749DD000326AF7 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				94392F18271D749C0073F85D /* MainViewController.swift */,
+				94F2D70C273EA12A002A5D9D /* MainViewModel.swift */,
+				94F2D710273EA155002A5D9D /* MainModel.swift */,
+				949B87032747BF9900509C19 /* Models */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		948F8B54274D1FEC0023DCF6 /* Histoty */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,6 +259,8 @@
 				948F8B52274D1FDF0023DCF6 /* HistoryViewController.swift */,
 				948F8B58274D21ED0023DCF6 /* HistoryViewModel.swift */,
 				948F8B5A274D21F80023DCF6 /* HistoryModel.swift */,
+				943AFF862773462900326AF7 /* HistoryCoordinator.swift */,
+				943AFF882773CA9500326AF7 /* HistoryFlowAssembly.swift */,
 			);
 			path = Histoty;
 			sourceTree = "<group>";
@@ -257,12 +294,12 @@
 		949B86FC2747BDDD00509C19 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				943AFF7F2773440300326AF7 /* Helpers */,
 				949B86FE2747BDFD00509C19 /* Ball */,
 				948F8B54274D1FEC0023DCF6 /* Histoty */,
-				949B86FD2747BDF300509C19 /* Settings */,
 				948F8B50274D0F5B0023DCF6 /* BallTabBarController.swift */,
-				9425DF8A276F3E1B0058EDB9 /* FlowCoordinator.swift */,
-				9425DF8C276F436B0058EDB9 /* NavigationNode.swift */,
+				943AFF8C2773D0A600326AF7 /* TabBarAssembly.swift */,
+				943AFF8A2773CF9300326AF7 /* TabBarCoordinator.swift */,
 			);
 			path = Flows;
 			sourceTree = "<group>";
@@ -281,10 +318,10 @@
 		949B86FE2747BDFD00509C19 /* Ball */ = {
 			isa = PBXGroup;
 			children = (
-				949B87032747BF9900509C19 /* Models */,
-				94392F18271D749C0073F85D /* MainViewController.swift */,
-				94F2D70C273EA12A002A5D9D /* MainViewModel.swift */,
-				94F2D710273EA155002A5D9D /* MainModel.swift */,
+				943AFF8E27749DD000326AF7 /* Main */,
+				949B86FD2747BDF300509C19 /* Settings */,
+				943AFF80277344AD00326AF7 /* BallFlowAssembly.swift */,
+				943AFF822773454500326AF7 /* BallFlowCoordinator.swift */,
 			);
 			path = Ball;
 			sourceTree = "<group>";
@@ -473,21 +510,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				949B87052747BFAC00509C19 /* ManagedAnswer.swift in Sources */,
+				943AFF8D2773D0A600326AF7 /* TabBarAssembly.swift in Sources */,
 				949B87072747BFCA00509C19 /* PresentableMagicAnswer.swift in Sources */,
 				945B0D4D27529EA90000E01D /* Ball+CoreDataClass.swift in Sources */,
 				949B8712274AA37900509C19 /* SettingsTableViewCell.swift in Sources */,
 				949B87022747BE7800509C19 /* SettingsModel.swift in Sources */,
 				94F2D6F9273D623A002A5D9D /* XCAssets+Generated.swift in Sources */,
+				943AFF8B2773CF9300326AF7 /* TabBarCoordinator.swift in Sources */,
+				943AFF892773CA9500326AF7 /* HistoryFlowAssembly.swift in Sources */,
 				94392F36271D9DF10073F85D /* CornerRadiusButton.swift in Sources */,
 				94F2D701273D6B9C002A5D9D /* Strings.swift in Sources */,
+				943AFF85277345FB00326AF7 /* AppNavigator.swift in Sources */,
 				948F8B62274D31AC0023DCF6 /* HistoryAnswer.swift in Sources */,
 				948F8B60274D31770023DCF6 /* ManagedHistoryAnswer.swift in Sources */,
 				94392F19271D749C0073F85D /* MainViewController.swift in Sources */,
+				943AFF832773454500326AF7 /* BallFlowCoordinator.swift in Sources */,
 				9425DF8D276F436B0058EDB9 /* NavigationNode.swift in Sources */,
 				94392F2D271D79E30073F85D /* SettingsViewController.swift in Sources */,
 				94B5FB732739761F00CBBB54 /* Repository.swift in Sources */,
 				945B0D4E27529EA90000E01D /* Ball+CoreDataProperties.swift in Sources */,
 				949B8716274ADFF800509C19 /* NavigationView.swift in Sources */,
+				943AFF81277344AD00326AF7 /* BallFlowAssembly.swift in Sources */,
 				94F2D729273FD3C2002A5D9D /* Balls.xcdatamodeld in Sources */,
 				949B870C2747D0D400509C19 /* SettingsCell.swift in Sources */,
 				948F8B65274D37800023DCF6 /* BallRepositoryAnswer.swift in Sources */,
@@ -498,6 +541,7 @@
 				94F2D711273EA155002A5D9D /* MainModel.swift in Sources */,
 				948F8B51274D0F5B0023DCF6 /* BallTabBarController.swift in Sources */,
 				948F8B57274D20AD0023DCF6 /* HistoryTableViewCell.swift in Sources */,
+				943AFF872773462900326AF7 /* HistoryCoordinator.swift in Sources */,
 				948F8B5B274D21F80023DCF6 /* HistoryModel.swift in Sources */,
 				948F8B53274D1FE00023DCF6 /* HistoryViewController.swift in Sources */,
 				944F6D5B27401C690035CC45 /* AppDelegate.swift in Sources */,

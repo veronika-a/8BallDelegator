@@ -32,4 +32,8 @@ class MainViewModel {
     func getAnswer(currentAnswer: String?) {
         model.getAnswer()
     }
+
+    func presentSettings() {
+        model.presentSettings()
+    }
 }
