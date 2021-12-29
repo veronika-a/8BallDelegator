@@ -9,16 +9,17 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MainModel {
+class MainModel: NavigationNode {
     private let repository: Repository
     weak var delegate: ReloadDataDelegate?
     private let secureStorage: SecureStorage
     private var secureCounter: Int = 0
     var managedAnswer = BehaviorSubject<ManagedAnswer>(value: ManagedAnswer())
 
-    init(repository: Repository, secureStorage: SecureStorage) {
+    init(repository: Repository, secureStorage: SecureStorage, parent: NavigationNode?) {
         self.repository = repository
         self.secureStorage = secureStorage
+        super.init(parent: parent)
     }
 
     func updateCounter() {
@@ -38,6 +39,10 @@ class MainModel {
                 print(networkError)
             }
         }
+    }
+    
+    func presentSettings() {
+        raise(event: BallListEvent.settings)
     }
 }
 

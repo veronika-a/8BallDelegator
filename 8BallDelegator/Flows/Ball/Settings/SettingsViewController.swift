@@ -61,13 +61,9 @@ class SettingsViewController: UIViewController {
         }
     }
 
-    private func toMain() {
-        navigationController?.popViewController(animated: true)
-    }
-
     // MARK: - IBAction
     @objc func back() {
-        toMain()
+        settingsViewModel.presentMain()
     }
 }
 

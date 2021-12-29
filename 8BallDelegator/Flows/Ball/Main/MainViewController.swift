@@ -12,6 +12,7 @@ import SnapKit
 import SceneKit
 import RxSwift
 import RxCocoa
+import Swinject
 
 class MainViewController: UIViewController {
 
@@ -102,11 +103,8 @@ class MainViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
-    private func toSettings() {
-        let settingsModel = SettingsModel()
-        let settingsViewModel = SettingsViewModel(settingsModel: settingsModel)
-        let settingsVC = SettingsViewController(settingsViewModel: settingsViewModel)
-        navigationController?.pushViewController(settingsVC, animated: true)
+    private func presentSettings() {
+        mainViewModel.presentSettings()
     }
 
     private func getAnswer() {
@@ -131,7 +129,7 @@ class MainViewController: UIViewController {
 
     // MARK: - IBAction
     @objc func settings() {
-        toSettings()
+        presentSettings()
     }
 }
 

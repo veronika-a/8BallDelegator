@@ -7,5 +7,8 @@
 
 import Foundation
 
-class SettingsModel {
+class SettingsModel: NavigationNode {
+    func presentMain() {
+        raise(event: BallListEvent.main)
+    }
 }
